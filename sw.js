@@ -1,5 +1,5 @@
 // Service Worker para Araceli Morales | Powered by OMEN
-const CACHE_NAME = 'aracelimorales-omen-v1';
+const CACHE_NAME = 'aracelimorales-omen-v2';
 const urlsToCache = [
   './',
   './index.html',

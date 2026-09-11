@@ -1,62 +1,80 @@
-/* ARACELI MORALES - GIRLY CARO TIPO APPLE STYLING */
-
-/* Hide scrollbars */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-#content-scrollable::-webkit-scrollbar { width: 4px; }
-#content-scrollable::-webkit-scrollbar-track { background: transparent; }
-#content-scrollable::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 9999px; }
-#content-scrollable::-webkit-scrollbar-thumb:hover { background: rgba(255, 59, 119, 0.3); }
-
-/* View transitions */
-.client-screen, .coach-screen {
-  animation: appleFadeIn 0.22s ease-out forwards;
-}
-
-@keyframes appleFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Active tab buttons */
-.client-nav-btn.active, .coach-nav-btn.active {
-  color: #FF3B77 !important;
-}
-
-.client-nav-btn.active i, .coach-nav-btn.active i {
-  filter: drop-shadow(0 0 8px rgba(255, 59, 119, 0.6));
-}
-
-/* Range slider Apple style */
-input[type=range] {
-  -webkit-appearance: none;
-  background: rgba(255, 255, 255, 0.1);
-  height: 5px;
-  border-radius: 9999px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  background: #FF3B77;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(255, 59, 119, 0.8);
-  transition: transform 0.15s ease;
-}
-
-input[type=range]::-webkit-slider-thumb:hover {
-  transform: scale(1.18);
-}
-
-@media (max-width: 640px) {
-  #device-container {
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    max-width: 100% !important;
-    height: 100vh !important;
+/* Girly Luxury Tipo Apple Stylesheet */
+@layer base {
+  body {
+    background-color: #08070B;
+    color: #F3F4F6;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(18, 15, 26, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-rose {
+  background: linear-gradient(180deg, rgba(35, 18, 30, 0.6) 0%, rgba(18, 14, 24, 0.8) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 45, 85, 0.2);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 45, 85, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(255, 45, 85, 0.25);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08070B;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 45, 85, 0.4);
+}
+
+/* Apple Concentric Rings SVG */
+.apple-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Custom Pulsing Animation */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.ambient-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* Active tab styling */
+.active-tab {
+  background: linear-gradient(135deg, #FF2D55 0%, #FB7185 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 15px -3px rgba(255, 45, 85, 0.4) !important;
+}
+
+/* Day Pill Active */
+.day-pill.active {
+  background: #FF2D55;
+  color: #FFFFFF;
+  border-color: #FF2D55;
+  box-shadow: 0 0 12px rgba(255, 45, 85, 0.4);
+}\n

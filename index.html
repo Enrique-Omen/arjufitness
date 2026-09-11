@@ -2,19 +2,24 @@
 <html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ARACELI MORALES | Official Fitness App</title>
-  <meta name="description" content="Plataforma oficial de entrenamiento y nutrición de Araceli Morales. Powered by OMEN.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARACELI MORALES | Official Fitness Platform • Powered by OMEN</title>
+  <meta name="description" content="Plataforma oficial de entrenamiento y nutrición de Araceli Morales. Powered by OMEN Technologies.">
   
-  <!-- PWA Settings -->
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#08080C">
+  <meta name="theme-color" content="#08070B">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="AraceliFit">
   <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=192&auto=format&fit=crop&q=80">
 
-  <!-- Tailwind CSS & Fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,802 +27,1067 @@
       theme: {
         extend: {
           colors: {
-            rose: {
-              accent: '#FF3B77',
-              accentHover: '#E02660',
-              soft: '#FB7185',
-              champagne: '#FFE4E6',
-              darkGlow: '#2A0E1A'
-            },
-            apple: {
-              bg: '#08080C',
-              surface: '#101017',
-              card: '#161622',
-              cardBorder: 'rgba(255, 117, 160, 0.12)',
-              muted: '#8E8E9F',
-              gold: '#F5D0A9'
+            brand: {
+              onyx: '#08070B',
+              surface: '#0F0D15',
+              card: 'rgba(20, 17, 28, 0.75)',
+              cardHover: 'rgba(28, 24, 40, 0.85)',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderGlow: 'rgba(255, 45, 85, 0.25)',
+              rose: '#FF2D55',
+              softRose: '#FB7185',
+              pinkMuted: '#FDA4AF',
+              pinkLight: '#FFF1F2',
+              gold: '#F59E0B',
+              champagne: '#FDE68A'
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            display: ['"Outfit"', 'sans-serif']
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            luxury: ['Cinzel', 'serif']
           },
           boxShadow: {
-            'glow-rose': '0 0 30px rgba(255, 59, 119, 0.35)',
-            'glow-gold': '0 0 25px rgba(245, 208, 169, 0.25)',
-            'device': '0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 10px #181720, 0 0 0 12px #262432'
+            'glow-rose': '0 0 25px -5px rgba(255, 45, 85, 0.35)',
+            'glow-gold': '0 0 25px -5px rgba(245, 158, 11, 0.35)',
+            'glow-card': '0 10px 40px -10px rgba(0, 0, 0, 0.7)'
           }
         }
       }
     }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#050508] text-gray-100 font-sans min-h-screen antialiased flex flex-col items-center justify-start selection:bg-rose-accent selection:text-white">
+<body class="bg-brand-onyx text-gray-100 font-sans antialiased min-h-screen flex flex-col selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
 
-  <!-- ==================== TOP NAVIGATION BAR (APPLE MINIMALIST) ==================== -->
-  <header class="w-full bg-[#0C0B12]/95 border-b border-white/[0.08] backdrop-blur-xl sticky top-0 z-50 py-2.5 px-3 sm:px-8 flex items-center justify-between shadow-2xl">
-    <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-accent to-rose-soft flex items-center justify-center font-display font-black text-white text-xs shadow-glow-rose">
-        AM
+  <!-- Ambient Luxury Glows (Non-blocking) -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-gradient-to-b from-rose-600/15 via-pink-600/5 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-t from-pink-900/10 to-transparent blur-[140px] pointer-events-none -z-10"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 transform -translate-y-10 opacity-0 scale-95">
+    <div class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1E1929] to-[#14111E] border border-rose-500/40 text-white shadow-2xl backdrop-blur-2xl">
+      <div class="w-8 h-8 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
       </div>
       <div>
-        <div class="flex items-center gap-2">
-          <span class="font-display font-extrabold text-xs sm:text-sm text-white tracking-widest">ARACELI MORALES</span>
-          <span class="bg-rose-accent/15 text-rose-soft text-[9px] font-bold px-2 py-0.5 rounded-full border border-rose-accent/25">STUDIO</span>
-        </div>
-        <p class="text-[9px] text-gray-400 hidden sm:block">Powered by <span class="text-white font-semibold">OMEN Technologies</span></p>
+        <p id="toast-msg" class="text-xs font-bold text-white tracking-wide">Cambio guardado</p>
+        <p class="text-[10px] text-gray-400">Sincronizado en vivo con la app</p>
       </div>
     </div>
+  </div>
 
-    <!-- Apple-Style Dynamic Island User Role Switcher -->
-    <div class="flex items-center bg-black/60 p-1 rounded-full border border-white/10 shadow-inner">
-      <button onclick="switchUserRole('client')" id="btn-role-client" class="role-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all bg-rose-accent text-white shadow-glow-rose">
-        <i data-lucide="user" class="w-3.5 h-3.5"></i>
-        <span>Alumna (Sofía)</span>
-      </button>
-      <button onclick="switchUserRole('coach')" id="btn-role-coach" class="role-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all text-gray-400 hover:text-white">
-        <i data-lucide="crown" class="w-3.5 h-3.5 text-rose-soft"></i>
-        <span>Coach (Araceli)</span>
-      </button>
-    </div>
+  <!-- ==================== GLOBAL LUXURY HEADER ==================== -->
+  <header class="sticky top-0 z-40 backdrop-blur-2xl bg-brand-onyx/85 border-b border-brand-border px-4 sm:px-6 lg:px-8 transition-all">
+    <div class="max-w-7xl mx-auto h-16 sm:h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="navigateTo('portal')">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 to-amber-300 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+          <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-rose-500 via-pink-500 to-amber-300 p-[1.5px]">
+            <div class="w-full h-full bg-[#0E0C15] rounded-[10px] flex items-center justify-center">
+              <span class="text-base font-extrabold tracking-tighter bg-gradient-to-r from-rose-400 via-pink-300 to-amber-200 bg-clip-text text-transparent font-luxury">AM</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-sm sm:text-base font-black tracking-widest text-white font-sans">ARACELI MORALES</span>
+            <span class="inline-flex items-center gap-1 text-[9px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold uppercase tracking-wider">
+              <i data-lucide="check" class="w-2.5 h-2.5"></i> Oficial
+            </span>
+          </div>
+          <p class="text-[10px] text-gray-400 font-medium">POWERED BY <strong class="text-gray-200 hover:text-white">OMEN TECHNOLOGIES</strong></p>
+        </div>
+      </div>
 
-    <!-- Pitch & Tools CTA -->
-    <div class="flex items-center gap-2">
-      <button onclick="openPitchModal()" class="flex items-center gap-1.5 bg-gradient-to-r from-rose-accent to-pink-600 hover:brightness-110 text-white font-extrabold text-xs px-3 py-1.5 rounded-xl shadow-glow-rose transition active:scale-95">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-        <span class="hidden md:inline">Propuesta OMEN ($)</span>
-      </button>
+      <!-- Center Status Badge -->
+      <div class="hidden md:flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+        </span>
+        <span id="nav-mode-badge" class="text-xs font-semibold text-gray-300">Portal de Bienvenida VIP</span>
+      </div>
+
+      <!-- Right Navigation Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Return to Portal Button -->
+        <button onclick="navigateTo('portal')" id="btn-nav-portal" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition active:scale-95">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>Portal VIP</span>
+        </button>
+
+        <!-- Quick Switcher Pill -->
+        <div class="flex items-center bg-black/50 p-1 rounded-2xl border border-white/10 shadow-inner">
+          <button onclick="navigateTo('coach')" id="btn-quick-coach" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white">
+            <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span class="hidden sm:inline">Coach (Ara)</span>
+          </button>
+          <button onclick="navigateTo('client')" id="btn-quick-client" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white">
+            <i data-lucide="user" class="w-3.5 h-3.5 text-rose-400"></i>
+            <span class="hidden sm:inline">Alumna (Sofía)</span>
+          </button>
+        </div>
+
+        <!-- Pitch Proposition CTA -->
+        <button onclick="openPitchModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-glow-rose transition active:scale-95">
+          <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Plan OMEN ($)</span>
+        </button>
+
+      </div>
     </div>
   </header>
 
-  <!-- ==================== IPHONE 16 PRO DEVICE WRAPPER ==================== -->
-  <main class="w-full flex-1 flex items-center justify-center p-0 sm:p-4 lg:p-6">
-    <div id="device-container" class="w-full max-w-[420px] min-h-screen sm:min-h-[880px] sm:max-h-[910px] bg-apple-bg sm:rounded-[48px] sm:shadow-device border-0 sm:border-[8px] sm:border-[#1A1924] relative flex flex-col overflow-hidden transition-all duration-300">
+  <!-- ==================== MAIN CONTAINER ==================== -->
+  <main class="flex-1 w-full flex flex-col">
+
+    <!-- ================================================================= -->
+    <!-- VIEW 1: PORTAL DE BIENVENIDA VIP (GATEWAY / LANDING)               -->
+    <!-- ================================================================= -->
+    <section id="view-portal" class="w-full flex-1 flex flex-col justify-center max-w-6xl mx-auto px-4 sm:px-6 py-10 lg:py-16">
       
-      <!-- Apple Dynamic Island & Live Status -->
-      <div class="w-full pt-2 px-6 flex justify-between items-center text-xs font-semibold text-gray-300 z-40 bg-apple-bg/95 backdrop-blur-md select-none">
-        <span id="live-time" class="text-[11px] font-mono">9:41</span>
-        <div class="w-24 h-4 bg-black rounded-full mx-auto hidden sm:flex items-center justify-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-soft animate-ping"></span>
-          <span class="text-[8px] text-gray-400 font-mono" id="island-badge">AM Club</span>
+      <!-- Luxury Hero Welcome -->
+      <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs font-bold tracking-wider uppercase mb-6 shadow-glow-rose">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>DEMO OFICIAL & EXCLUSIVA • VERSIÓN 2.0</span>
         </div>
-        <div class="flex items-center gap-1.5 text-gray-300">
-          <i data-lucide="signal" class="w-3.5 h-3.5"></i>
-          <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
-          <i data-lucide="battery" class="w-4 h-4 text-rose-soft"></i>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-none">
+          Hola Ara, <span class="bg-gradient-to-r from-rose-400 via-pink-400 to-amber-200 bg-clip-text text-transparent">bienvenida a tu demo VIP</span>
+        </h1>
+
+        <p class="text-sm sm:text-base text-gray-300 mt-6 leading-relaxed">
+          Diseñamos esta infraestructura para que transformes tus <strong class="text-white font-bold">44,000 seguidoras de Instagram</strong> en un negocio recurrente de más de <strong class="text-rose-300 font-bold">$200,000 MXN mensuales</strong>. Todo automatizado, ultra-lujoso y con tecnología <strong class="text-white font-semibold">OMEN</strong>.
+        </p>
+
+        <p class="text-xs text-gray-400 mt-3">
+          Selecciona cómo deseas explorar la demo hoy:
+        </p>
+      </div>
+
+      <!-- Two Giant Luxury Access Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto w-full">
+        
+        <!-- Card 1: Coach / Araceli Mode -->
+        <div onclick="navigateTo('coach')" class="group relative rounded-3xl p-6 sm:p-8 glass-panel-rose cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:border-rose-400/60 shadow-[0_20px_50px_rgba(255,45,85,0.15)] flex flex-col justify-between">
+          <div class="absolute top-5 right-5 w-10 h-10 rounded-2xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-300 shadow">
+            <i data-lucide="crown" class="w-5 h-5"></i>
+          </div>
+
+          <div>
+            <span class="inline-block text-[10px] font-mono font-black uppercase tracking-widest text-amber-300 bg-amber-400/15 px-3 py-1 rounded-full border border-amber-400/30 mb-4">
+              MODO DUEÑA & ADMINISTRADORA
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-rose-200 transition">
+              Entrar como Araceli (Coach)
+            </h3>
+            <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+              Tu centro de mando para controlar a todas tus alumnas, modificar sus planes día a día, subir videos exclusivos y ver tus métricas de ingresos.
+            </p>
+
+            <ul class="mt-6 space-y-2.5 text-xs text-gray-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <span><strong>Control de alumnas:</strong> Sofía, Valentina y Camila</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <span><strong>Editor de nutrición:</strong> modifica calorías y comidas por día</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <span><strong>Editor de rutinas:</strong> ajusta series, reps y pesos</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <span><strong>Subir videos:</strong> publica masterclasses y clases privadas</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <span><strong>Bandeja de coaching:</strong> chatea y manda notas de voz</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <span class="text-xs font-bold text-rose-300 flex items-center gap-1.5 group-hover:translate-x-1 transition">
+              Acceder a mi panel de control <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </span>
+            <span class="text-[10px] text-gray-400">428 alumnas activas</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Client / Alumna Mode -->
+        <div onclick="navigateTo('client')" class="group relative rounded-3xl p-6 sm:p-8 glass-panel cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:border-pink-400/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between">
+          <div class="absolute top-5 right-5 w-10 h-10 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-300 shadow">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+          </div>
+
+          <div>
+            <span class="inline-block text-[10px] font-mono font-black uppercase tracking-widest text-rose-300 bg-rose-500/15 px-3 py-1 rounded-full border border-rose-500/30 mb-4">
+              EXPERIENCIA ALUMNA VIP
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-pink-200 transition">
+              Entrar como Alumna (Sofía)
+            </h3>
+            <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+              Experimenta la app exactamente como la disfrutan tus alumnas en su celular o laptop: sus planes diarios, nutrición con anillos Apple, videos y chat contigo.
+            </p>
+
+            <ul class="mt-6 space-y-2.5 text-xs text-gray-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-pink-400 shrink-0"></i>
+                <span><strong>Nutrición del día:</strong> anillos Apple sincronizados contigo</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-pink-400 shrink-0"></i>
+                <span><strong>Rutina interactiva:</strong> anota sus pesos y timer de 45s</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-pink-400 shrink-0"></i>
+                <span><strong>Clases exclusivas:</strong> mira los videos que tú subes</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-pink-400 shrink-0"></i>
+                <span><strong>Chat 1 a 1:</strong> habla directo contigo y sube check-in</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-pink-400 shrink-0"></i>
+                <span><strong>Gamificación:</strong> racha de 14 días y registro de agua</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <span class="text-xs font-bold text-pink-300 flex items-center gap-1.5 group-hover:translate-x-1 transition">
+              Ver experiencia de clienta <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </span>
+            <span class="text-[10px] text-gray-400">Plan VIP Booty & Glow</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Sync Callout Banner -->
+      <div class="mt-12 max-w-4xl mx-auto w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-rose-950/30 via-[#130E1B] to-purple-950/30 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 text-left">
+          <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+            <i data-lucide="refresh-cw" class="w-4 h-4 animate-spin"></i>
+          </div>
+          <div>
+            <h5 class="text-xs font-bold text-white">Sincronización Bidireccional en Tiempo Real</h5>
+            <p class="text-[11px] text-gray-400">Cualquier cambio que hagas en el panel de Ara (calorías, rutinas o videos) se actualiza de inmediato para la alumna.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="navigateTo('coach')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition">
+            Probar Ahora
+          </button>
         </div>
       </div>
 
-      <!-- User Active Context Bar -->
-      <div class="w-full px-4 py-2 flex items-center justify-between border-b border-white/[0.06] bg-apple-surface/90 backdrop-blur-md z-30 sticky top-0">
-        <div class="flex items-center gap-2.5">
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 2: PANEL DE CONTROL DE ARACELI (COACH / DUEÑA)                -->
+    <!-- ================================================================= -->
+    <section id="view-coach" class="hidden w-full flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      
+      <!-- Coach Header Profile Card -->
+      <div class="p-6 rounded-3xl glass-panel-rose mb-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
           <div class="relative">
-            <img id="nav-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover ring-2 ring-rose-accent/60">
-            <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-400 rounded-full border border-black"></span>
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-300/60 shadow-glow-gold">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=300&auto=format&fit=crop&q=80" alt="Araceli Morales" class="w-full h-full object-cover">
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-400 text-black flex items-center justify-center font-bold text-[10px] shadow">
+              👑
+            </span>
           </div>
           <div>
-            <span id="nav-name" class="font-display font-bold text-xs text-white block leading-tight">Sofía Ramírez</span>
-            <span id="nav-badge" class="text-[10px] text-rose-soft font-medium">Coach: Araceli Morales ✓</span>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl sm:text-2xl font-black text-white">Araceli Morales</h2>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-200 border border-amber-400/30 font-bold uppercase">
+                Coach Principal & Dueña
+              </span>
+            </div>
+            <p class="text-xs text-gray-300 mt-1">Plataforma Digital Oficial • <strong class="text-white">44k seguidores en Instagram</strong></p>
+            <div class="flex flex-wrap items-center gap-3 mt-2 text-[11px] text-gray-400 font-mono">
+              <span class="flex items-center gap-1"><i data-lucide="users" class="w-3.5 h-3.5 text-rose-400"></i> 428 Alumnas Activas</span>
+              <span>•</span>
+              <span class="flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i> $149,372 MXN este mes</span>
+              <span>•</span>
+              <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-300"></i> 18 Check-ins hoy</span>
+            </div>
           </div>
         </div>
 
-        <button onclick="showToast('Tienes 1 check-in programado para este domingo con Araceli.')" class="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:text-white">
-          <i data-lucide="bell" class="w-3.5 h-3.5"></i>
+        <div class="flex items-center gap-2 w-full lg:w-auto justify-end">
+          <button onclick="navigateTo('client')" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.06] hover:bg-white/10 text-rose-300 font-bold text-xs border border-white/10 transition">
+            <i data-lucide="eye" class="w-4 h-4"></i>
+            <span>Ver cómo lo ve Sofía ahora</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Coach Navigation Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-white/10 mb-6 scrollbar-none">
+        <button onclick="switchCoachTab('clients')" id="btn-coach-tab-clients" class="active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>Alumnas & Planes por Día</span>
+        </button>
+        <button onclick="switchCoachTab('videos')" id="btn-coach-tab-videos" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="video" class="w-4 h-4"></i>
+          <span>Subir & Ver Videos</span>
+        </button>
+        <button onclick="switchCoachTab('messages')" id="btn-coach-tab-messages" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Bandeja de Mensajes</span>
+        </button>
+        <button onclick="switchCoachTab('metrics')" id="btn-coach-tab-metrics" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Métricas de Negocio</span>
         </button>
       </div>
 
-      <!-- Main Scrollable Body -->
-      <div id="content-scrollable" class="flex-1 overflow-y-auto overflow-x-hidden pb-20 text-sm relative scroll-smooth">
-
-        <!-- ************************************************************ -->
-        <!-- ****************** 1. PORTAL ALUMNA (SOFÍA) **************** -->
-        <!-- ************************************************************ -->
-        <div id="portal-client" class="space-y-4">
+      <!-- TAB 1: ALUMNAS & PLANES (EDITABLE POR DÍA) -->
+      <div id="coach-tab-clients" class="w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          <!-- SCREEN 1: NUTRICIÓN CON APPLE RINGS -->
-          <section id="client-view-nutrition" class="client-screen active p-4 space-y-4">
+          <!-- Left Column: Client Roster Selector (4 cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <h3 class="text-xs font-black uppercase tracking-wider text-gray-400">Directorio de Alumnas</h3>
+              <span class="text-[10px] text-rose-400 font-mono">3 Seleccionadas</span>
+            </div>
             
-            <div class="flex items-center justify-between">
-              <div>
-                <span class="text-[10px] font-extrabold uppercase tracking-widest text-rose-soft">PLAN NUTRICIONAL</span>
-                <h2 class="font-display font-black text-lg text-white">Mis Macros & Comidas</h2>
+            <div id="coach-roster-list" class="flex flex-col gap-2.5">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Right Column: Live Plan Editor for Selected Client (8 cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-6">
+            
+            <!-- Editor Header & Day Selector -->
+            <div class="p-5 rounded-3xl glass-panel flex flex-col gap-4">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <div>
+                  <h3 class="text-lg font-black text-white flex items-center gap-2">
+                    <span id="coach-editor-client-name">Sofía Ramírez</span>
+                    <span class="text-xs font-normal text-rose-300">• Editor de Programa</span>
+                  </h3>
+                  <p id="coach-editor-client-plan" class="text-xs text-gray-400">Plan VIP Booty & Glow • 58.2 kg actual</p>
+                </div>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-bold text-gray-300">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-rose-400"></i>
+                  <span>Día: <strong id="coach-editor-current-day" class="text-white">Lunes</strong></span>
+                </div>
               </div>
-              <button onclick="openAddFoodModal()" class="px-3 py-1 bg-rose-accent/15 text-rose-accent border border-rose-accent/30 rounded-full text-xs font-bold flex items-center gap-1 hover:bg-rose-accent hover:text-white transition">
-                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                <span>Registrar</span>
-              </button>
+
+              <!-- Day of Week Selector Pills -->
+              <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                <button onclick="selectDay('Lunes')" data-day="Lunes" class="day-pill active px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Lunes</button>
+                <button onclick="selectDay('Martes')" data-day="Martes" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Martes</button>
+                <button onclick="selectDay('Miércoles')" data-day="Miércoles" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Miércoles</button>
+                <button onclick="selectDay('Jueves')" data-day="Jueves" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Jueves</button>
+                <button onclick="selectDay('Viernes')" data-day="Viernes" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Viernes</button>
+                <button onclick="selectDay('Sábado')" data-day="Sábado" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Sábado</button>
+                <button onclick="selectDay('Domingo')" data-day="Domingo" class="day-pill px-3.5 py-1.5 rounded-xl text-xs font-bold border border-white/10 transition">Domingo</button>
+              </div>
             </div>
 
-            <!-- Apple Watch Style Activity Rings Card -->
-            <div class="p-5 rounded-3xl bg-gradient-to-br from-apple-card via-apple-surface to-[#120D18] border border-apple-cardBorder shadow-xl space-y-4">
+            <!-- Box 1: Nutrition & Calories Editor -->
+            <div class="p-6 rounded-3xl glass-panel flex flex-col gap-4 border border-rose-500/20">
               <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-[10px] text-gray-400 uppercase font-semibold">Calorías del Día</span>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="font-display text-3xl font-black text-white" id="client-cal-val">1,380</span>
-                    <span class="text-xs text-gray-400">/ 1,800 kcal</span>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                    <i data-lucide="apple" class="w-4 h-4"></i>
                   </div>
-                  <span class="text-[11px] text-rose-soft font-semibold">Te quedan 420 kcal para cenar</span>
-                </div>
-
-                <!-- Apple Style Concentric Rings Visualizer -->
-                <div class="relative w-20 h-20 flex items-center justify-center">
-                  <!-- Outer Ring (Calories: Rose) -->
-                  <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                    <path class="text-white/10" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="text-rose-accent" stroke-dasharray="76, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  </svg>
-                  <!-- Middle Ring (Protein: Gold) -->
-                  <svg class="w-14 h-14 absolute transform -rotate-90" viewBox="0 0 36 36">
-                    <path class="text-white/10" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="text-apple-gold" stroke-dasharray="82, 100" stroke-width="4" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  </svg>
-                  <!-- Inner Ring (Water: Cyan) -->
-                  <svg class="w-8 h-8 absolute transform -rotate-90" viewBox="0 0 36 36">
-                    <path class="text-white/10" stroke-width="5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="text-emerald-400" stroke-dasharray="70, 100" stroke-width="5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Macros Cards -->
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/[0.06]">
-                <div class="bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.04]">
-                  <span class="text-[10px] text-rose-soft font-bold block">Proteína</span>
-                  <div class="font-mono font-bold text-xs text-white mt-0.5">110g <span class="text-[9px] text-gray-400">/ 135g</span></div>
-                  <span class="text-[8px] text-gray-500">Músculo magro</span>
-                </div>
-
-                <div class="bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.04]">
-                  <span class="text-[10px] text-apple-gold font-bold block">Carbos</span>
-                  <div class="font-mono font-bold text-xs text-white mt-0.5">148g <span class="text-[9px] text-gray-400">/ 180g</span></div>
-                  <span class="text-[8px] text-gray-500">Energía gym</span>
-                </div>
-
-                <div class="bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.04]">
-                  <span class="text-[10px] text-purple-300 font-bold block">Grasas</span>
-                  <div class="font-mono font-bold text-xs text-white mt-0.5">40g <span class="text-[9px] text-gray-400">/ 48g</span></div>
-                  <span class="text-[8px] text-gray-500">Hormonal</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Interactive Water Intake -->
-            <div class="p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/20 to-apple-card border border-blue-500/20 flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-blue-500/15 text-blue-400 flex items-center justify-center">
-                  <i data-lucide="droplets" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h4 class="font-bold text-xs text-white">Hidratación Diaria: <span id="client-water-text" class="text-blue-400">1,750 ml</span></h4>
-                  <span class="text-[10px] text-gray-400">Meta: 2,500 ml recomendada por Ara</span>
-                </div>
-              </div>
-              <button onclick="addClientWater()" class="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition shadow-md active:scale-95">
-                +250 ml
-              </button>
-            </div>
-
-            <!-- Daily Aesthetic Meals Checklist -->
-            <div class="space-y-2.5">
-              <h4 class="font-display font-bold text-xs text-white uppercase tracking-wider">Menú Recomendado de Araceli:</h4>
-
-              <!-- Breakfast -->
-              <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Breakfast">
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase font-bold text-rose-soft">Desayuno (410 kcal)</span>
-                    <span class="text-xs text-emerald-400 font-bold">✓ Comido</span>
+                  <div>
+                    <h4 class="text-sm font-black text-white">Alimentación & Calorías del Día</h4>
+                    <p class="text-[11px] text-gray-400">Modifica los macros y platillos que tu alumna verá hoy</p>
                   </div>
-                  <h5 class="font-bold text-xs text-white truncate mt-0.5">Pancakes de Avena & Prote con Berries</h5>
-                  <span class="text-[10px] text-gray-400">32g P • 45g C • 7g G</span>
+                </div>
+                <button onclick="saveCoachNutrition()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 text-white font-bold text-xs shadow-glow-rose transition active:scale-95">
+                  <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                  <span>Guardar Nutrición</span>
+                </button>
+              </div>
+
+              <!-- Macro Inputs Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Calorías Meta (kcal)</label>
+                  <input id="input-coach-cal" type="number" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-sm font-bold text-white focus:outline-none focus:border-rose-400">
+                </div>
+                <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Proteína (g)</label>
+                  <input id="input-coach-prot" type="number" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-sm font-bold text-rose-300 focus:outline-none focus:border-rose-400">
+                </div>
+                <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Carbohidratos (g)</label>
+                  <input id="input-coach-carb" type="number" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-sm font-bold text-amber-300 focus:outline-none focus:border-rose-400">
+                </div>
+                <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Grasas Saludables (g)</label>
+                  <input id="input-coach-fat" type="number" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-sm font-bold text-sky-300 focus:outline-none focus:border-rose-400">
                 </div>
               </div>
 
-              <!-- Lunch -->
-              <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Lunch">
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase font-bold text-rose-soft">Almuerzo (540 kcal)</span>
-                    <span class="text-xs text-emerald-400 font-bold">✓ Comido</span>
-                  </div>
-                  <h5 class="font-bold text-xs text-white truncate mt-0.5">Bowl Fitness de Salmón con Quinoa & Aguacate</h5>
-                  <span class="text-[10px] text-gray-400">42g P • 50g C • 16g G</span>
-                </div>
-              </div>
-
-              <!-- Dinner -->
-              <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Dinner">
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase font-bold text-gray-400">Cena (430 kcal)</span>
-                    <button onclick="markMealDone(this)" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-rose-accent hover:text-white text-[10px] font-bold text-gray-300">
-                      Registrar
-                    </button>
-                  </div>
-                  <h5 class="font-bold text-xs text-white truncate mt-0.5">Omelette de Claras con Espinaca & Cottage</h5>
-                  <span class="text-[10px] text-gray-400">36g P • 14g C • 6g G</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- SCREEN 2: RUTINAS & WORKOUT TRACKER -->
-          <section id="client-view-workout" class="client-screen p-4 space-y-4 hidden">
-            <!-- Active Routine Card -->
-            <div class="p-4 rounded-3xl bg-gradient-to-br from-[#1C0E16] via-apple-card to-apple-bg border border-rose-accent/25 shadow-xl space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black uppercase tracking-wider text-rose-soft bg-rose-accent/10 px-2.5 py-0.5 rounded-full border border-rose-accent/20">
-                  PROGRAMA ACTIVO
-                </span>
-                <span class="flex items-center gap-1 text-xs font-bold text-apple-gold">
-                  <i data-lucide="flame" class="w-3.5 h-3.5 fill-apple-gold"></i> Día 8 de 21
-                </span>
-              </div>
-              <h2 class="font-display font-black text-xl text-white">Booty Sculpt & Glúteos de Acero 🍑</h2>
-              <p class="text-xs text-gray-400">Diseñada por <strong class="text-white">Araceli Morales</strong> • Hipertrofia y Moldeado</p>
-
-              <!-- Session Progress Bar -->
-              <div class="pt-2 space-y-1">
-                <div class="flex justify-between text-[11px]">
-                  <span class="text-gray-400">Avance de la sesión:</span>
-                  <span class="text-rose-soft font-bold">2 de 4 ejercicios completados</span>
-                </div>
-                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                  <div class="bg-gradient-to-r from-rose-accent to-pink-400 h-full rounded-full w-[50%]"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Rest Timer Card -->
-            <div class="p-3.5 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-rose-accent/15 text-rose-soft flex items-center justify-center">
-                  <i data-lucide="timer" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 uppercase font-bold">Temporizador de Descanso</span>
-                  <div class="font-mono font-bold text-lg text-white" id="timer-display">00:45</div>
-                </div>
-              </div>
-              <button onclick="toggleTimer()" id="btn-timer" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-rose-accent hover:text-white text-xs font-bold text-white transition">
-                Iniciar
-              </button>
-            </div>
-
-            <!-- Exercises with Real Weight & Reps Logging -->
-            <div class="space-y-3">
-              <h3 class="font-display font-bold text-xs text-white uppercase tracking-wider flex items-center gap-2">
-                <i data-lucide="dumbbell" class="w-4 h-4 text-rose-accent"></i>
-                <span>Ejercicios Programados (Anota tus Pesos)</span>
-              </h3>
-
-              <!-- Ex 1: Hip Thrust -->
-              <div class="p-3.5 rounded-2xl bg-apple-card border border-apple-cardBorder space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2.5">
-                    <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Hip Thrust">
-                    <div>
-                      <h4 class="font-display font-bold text-xs text-white">1. Hip Thrust con Barra</h4>
-                      <span class="text-[10px] text-gray-400">4 Series × 10-12 Reps • 2 seg pausa</span>
-                    </div>
-                  </div>
-                  <button onclick="showTip('Hip Thrust: Aprieta glúteos arriba 2 segundos antes de bajar lentamente.')" class="text-rose-soft text-xs">
-                    <i data-lucide="info" class="w-4 h-4"></i>
+              <!-- Meals List & Add Meal Button -->
+              <div class="mt-2">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-gray-300">Menú Programado para este Día:</span>
+                  <button onclick="addMealPrompt()" class="text-xs font-bold text-rose-400 hover:text-white flex items-center gap-1 transition">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Agregar Platillo
                   </button>
                 </div>
-
-                <!-- Sets Row -->
-                <div class="grid grid-cols-4 gap-1.5 text-center text-[11px]">
-                  <div class="bg-white/[0.03] p-2 rounded-xl border border-white/5">
-                    <span class="text-[9px] text-gray-400 block mb-1">Set 1</span>
-                    <input type="number" value="60" class="w-full bg-black/50 text-center text-xs font-bold text-white rounded p-1 border border-white/10">
-                    <span class="text-[8px] text-gray-500">kg × 12</span>
-                    <button onclick="toggleSetCheck(this)" class="w-full mt-1.5 py-1 rounded bg-rose-accent text-white font-bold text-[10px]">✓ Hecho</button>
-                  </div>
-
-                  <div class="bg-white/[0.03] p-2 rounded-xl border border-white/5">
-                    <span class="text-[9px] text-gray-400 block mb-1">Set 2</span>
-                    <input type="number" value="65" class="w-full bg-black/50 text-center text-xs font-bold text-white rounded p-1 border border-white/10">
-                    <span class="text-[8px] text-gray-500">kg × 12</span>
-                    <button onclick="toggleSetCheck(this)" class="w-full mt-1.5 py-1 rounded bg-rose-accent text-white font-bold text-[10px]">✓ Hecho</button>
-                  </div>
-
-                  <div class="bg-white/[0.03] p-2 rounded-xl border border-white/5">
-                    <span class="text-[9px] text-gray-400 block mb-1">Set 3</span>
-                    <input type="number" value="70" class="w-full bg-black/50 text-center text-xs font-bold text-white rounded p-1 border border-white/10">
-                    <span class="text-[8px] text-gray-500">kg × 10</span>
-                    <button onclick="toggleSetCheck(this)" class="w-full mt-1.5 py-1 rounded bg-white/10 text-gray-300 font-bold text-[10px]">Marcar</button>
-                  </div>
-
-                  <div class="bg-white/[0.03] p-2 rounded-xl border border-white/5">
-                    <span class="text-[9px] text-gray-400 block mb-1">Set 4</span>
-                    <input type="number" value="70" class="w-full bg-black/50 text-center text-xs font-bold text-white rounded p-1 border border-white/10">
-                    <span class="text-[8px] text-gray-500">kg × 10</span>
-                    <button onclick="toggleSetCheck(this)" class="w-full mt-1.5 py-1 rounded bg-white/10 text-gray-300 font-bold text-[10px]">Marcar</button>
-                  </div>
+                <div id="coach-meals-list" class="space-y-2">
+                  <!-- Rendered dynamically by JS -->
                 </div>
-              </div>
-
-              <!-- Ex 2: Sentadilla Búlgara -->
-              <div class="p-3.5 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                  <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Búlgaras">
-                  <div>
-                    <h4 class="font-display font-bold text-xs text-white">2. Sentadilla Búlgara</h4>
-                    <span class="text-[10px] text-gray-400">3 Series × 12 reps / pierna • Con mancuernas</span>
-                  </div>
-                </div>
-                <button onclick="toggleSetCheck(this)" class="px-3 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-gray-300 hover:bg-rose-accent hover:text-white transition">
-                  Marcar
-                </button>
-              </div>
-
-              <!-- Ex 3: Peso Muerto Rumano -->
-              <div class="p-3.5 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                  <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-xl object-cover" alt="Rumano">
-                  <div>
-                    <h4 class="font-display font-bold text-xs text-white">3. Peso Muerto Rumano</h4>
-                    <span class="text-[10px] text-gray-400">4 Series × 12 reps • Enfoque isquiotibiales</span>
-                  </div>
-                </div>
-                <button onclick="toggleSetCheck(this)" class="px-3 py-1.5 rounded-xl bg-white/10 text-xs font-bold text-gray-300 hover:bg-rose-accent hover:text-white transition">
-                  Marcar
-                </button>
               </div>
             </div>
 
-            <!-- Finish Workout Button -->
-            <button onclick="completeClientSession()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-accent to-pink-600 hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow-rose transition active:scale-98">
-              <i data-lucide="check-circle" class="w-4 h-4"></i>
-              <span>Completar Entrenamiento de Hoy (+390 Kcal)</span>
-            </button>
-          </section>
+            <!-- Box 2: Workout & Exercises Editor -->
+            <div class="p-6 rounded-3xl glass-panel flex flex-col gap-4 border border-rose-500/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center">
+                    <i data-lucide="dumbbell" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-black text-white">Rutina & Ejercicios del Día</h4>
+                    <p class="text-[11px] text-gray-400">Configura la sesión de entrenamiento, pesos sugeridos y series</p>
+                  </div>
+                </div>
+                <button onclick="saveCoachWorkout()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 text-white font-bold text-xs shadow-glow-rose transition active:scale-95">
+                  <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                  <span>Guardar Rutina</span>
+                </button>
+              </div>
 
-          <!-- SCREEN 3: CHAT DIRECTO CON ARA & CHECK-IN -->
-          <section id="client-view-chat" class="client-screen p-4 flex flex-col h-full space-y-3 hidden">
-            <!-- Chat Head -->
-            <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="relative">
-                  <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover ring-2 ring-rose-accent">
-                  <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border border-black rounded-full"></span>
+              <!-- Workout Metadata Inputs -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Nombre de la Rutina</label>
+                  <input id="input-coach-workout-title" type="text" placeholder="Ej. Booty & Glutes Focus" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-400">
                 </div>
                 <div>
-                  <h3 class="font-display font-bold text-xs text-white flex items-center gap-1">
-                    Araceli Morales <i data-lucide="badge-check" class="w-3.5 h-3.5 text-blue-400 fill-blue-400"></i>
-                  </h3>
-                  <span class="text-[10px] text-emerald-400 font-medium">En línea para ti</span>
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Enfoque Muscular</label>
+                  <input id="input-coach-workout-focus" type="text" placeholder="Ej. Glúteo Máximo" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-400">
+                </div>
+                <div>
+                  <label class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Duración Estimada</label>
+                  <input id="input-coach-workout-duration" type="text" placeholder="Ej. 55 min" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-400">
                 </div>
               </div>
 
-              <!-- Send Check-in Button -->
-              <button onclick="openClientCheckinModal()" class="px-2.5 py-1.5 bg-rose-accent/15 border border-rose-accent/30 text-rose-soft rounded-xl text-xs font-bold flex items-center gap-1 hover:bg-rose-accent hover:text-white transition">
-                <i data-lucide="camera" class="w-3.5 h-3.5"></i>
-                <span>Enviar Check-in</span>
-              </button>
-            </div>
-
-            <!-- Voice Note Simulation Bubble -->
-            <div class="p-3 rounded-2xl bg-gradient-to-r from-rose-darkGlow to-apple-card border border-rose-accent/30 space-y-1.5 shadow-sm">
-              <span class="text-[10px] text-rose-soft font-bold uppercase tracking-wider flex items-center gap-1">
-                <i data-lucide="mic" class="w-3.5 h-3.5"></i> Nota de voz de Araceli (0:22)
-              </span>
-              <div class="flex items-center gap-2 bg-black/40 px-3 py-2 rounded-xl cursor-pointer hover:bg-black/60 transition" onclick="playVoiceAudio()">
-                <button class="w-7 h-7 rounded-full bg-rose-accent text-white flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
-                </button>
-                <div class="flex-1 flex items-center gap-1">
-                  <span class="w-1 h-3 bg-rose-accent rounded-full animate-pulse"></span>
-                  <span class="w-1 h-5 bg-rose-soft rounded-full"></span>
-                  <span class="w-1 h-2 bg-rose-soft/60 rounded-full"></span>
-                  <span class="w-1 h-6 bg-rose-accent rounded-full animate-pulse"></span>
-                  <span class="w-1 h-4 bg-rose-soft rounded-full"></span>
-                  <span class="w-1 h-3 bg-rose-soft/60 rounded-full"></span>
-                  <span class="w-1 h-5 bg-rose-accent rounded-full"></span>
+              <!-- Exercises List & Add Exercise Button -->
+              <div class="mt-2">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-gray-300">Ejercicios de la Rutina:</span>
+                  <button onclick="addExercisePrompt()" class="text-xs font-bold text-rose-400 hover:text-white flex items-center gap-1 transition">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Agregar Ejercicio
+                  </button>
                 </div>
-                <span class="text-[10px] text-gray-400 font-mono">0:22</span>
+                <div id="coach-exercises-list" class="space-y-3">
+                  <!-- Rendered dynamically by JS -->
+                </div>
               </div>
+
             </div>
 
-            <!-- Synchronized Messages Stream -->
-            <div id="shared-chat-stream-client" class="flex-1 space-y-2.5 overflow-y-auto min-h-[320px] max-h-[380px] pr-1">
-              <!-- Rendered by JS -->
-            </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- Client Message Input -->
-            <form onsubmit="clientSendMessage(event)" class="flex items-center gap-2 pt-1">
-              <input id="client-msg-input" type="text" placeholder="Escríbele tu duda o avance a Ara..." class="flex-1 bg-apple-card border border-apple-cardBorder rounded-2xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-rose-accent">
-              <button type="submit" class="w-10 h-10 rounded-2xl bg-rose-accent hover:bg-rose-accentHover text-white flex items-center justify-center flex-shrink-0 shadow-glow-rose transition">
-                <i data-lucide="send" class="w-4 h-4"></i>
-              </button>
-            </form>
-          </section>
-
-          <!-- Client Bottom Navigation Bar (Apple Clean Minimal) -->
-          <nav class="w-full h-16 bg-apple-bg/95 backdrop-blur-xl border-t border-white/[0.08] px-6 flex items-center justify-around z-40 absolute bottom-0">
-            <button onclick="switchClientTab('nutrition')" id="btn-client-nav-nutrition" class="client-nav-btn active flex flex-col items-center gap-1 text-rose-accent transition">
-              <i data-lucide="salad" class="w-4 h-4"></i>
-              <span class="text-[10px] font-bold">Nutrición</span>
-            </button>
-            <button onclick="switchClientTab('workout')" id="btn-client-nav-workout" class="client-nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition">
-              <i data-lucide="dumbbell" class="w-4 h-4"></i>
-              <span class="text-[10px] font-bold">Rutinas</span>
-            </button>
-            <button onclick="switchClientTab('chat')" id="btn-client-nav-chat" class="client-nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition relative">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span class="text-[10px] font-bold">Chat Ara</span>
-              <span class="absolute -top-0.5 right-1 w-2 h-2 bg-rose-accent rounded-full animate-ping"></span>
-            </button>
-          </nav>
+      <!-- TAB 2: VIDEOS & MASTERCLASSES -->
+      <div id="coach-tab-videos" class="hidden w-full">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="text-lg font-black text-white">Videoteca & Clases VIP</h3>
+            <p class="text-xs text-gray-400">Gestiona las clases y tutoriales técnicos disponibles para todas tus alumnas</p>
+          </div>
+          <button onclick="openUploadVideoModal()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 text-white font-bold text-xs shadow-glow-rose transition active:scale-95">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            <span>+ Subir Nuevo Video</span>
+          </button>
         </div>
 
+        <div id="coach-videos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
 
-        <!-- ************************************************************ -->
-        <!-- ****************** 2. PORTAL COACH (ARACELI) **************** -->
-        <!-- ************************************************************ -->
-        <div id="portal-coach" class="space-y-4 hidden">
+      <!-- TAB 3: BANDEJA DE MENSAJES DIRECTOS -->
+      <div id="coach-tab-messages" class="hidden w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          <!-- COACH SCREEN 1: DASHBOARD & ALUMNAS CRM -->
-          <section id="coach-view-crm" class="coach-screen active p-4 space-y-4">
-            <!-- Executive Welcome Card -->
-            <div class="p-5 rounded-3xl bg-gradient-to-br from-rose-darkGlow via-apple-card to-black border border-rose-accent/30 shadow-xl space-y-3">
-              <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-[10px] font-extrabold uppercase text-rose-soft bg-rose-accent/15 px-2.5 py-0.5 rounded-full border border-rose-accent/30">
-                    ESTUDIO VIP OFICIAL
-                  </span>
-                  <h2 class="font-display font-black text-xl text-white mt-1">Hola, Araceli Morales 👋</h2>
-                  <p class="text-xs text-gray-400">Control de tus 44K seguidoras monetizadas</p>
+          <!-- Conversations sidebar (4 cols) -->
+          <div class="lg:col-span-4 p-4 rounded-3xl glass-panel flex flex-col gap-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Chats Activos</h3>
+            <div class="space-y-2">
+              <div onclick="selectClient('sofia')" class="p-3 rounded-2xl bg-white/[0.04] border border-rose-500/30 cursor-pointer flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="w-10 h-10 rounded-full object-cover">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h5 class="text-xs font-bold text-white">Sofía Ramírez</h5>
+                    <span class="text-[9px] text-gray-400">09:25 AM</span>
+                  </div>
+                  <p class="text-[11px] text-gray-300 truncate">¡Siii Ara! Me sentí súper fuerte...</p>
                 </div>
-                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=120&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover ring-2 ring-rose-accent">
               </div>
-
-              <!-- Revenue & Alumnas KPI Cards -->
-              <div class="grid grid-cols-2 gap-2 pt-1">
-                <div class="bg-white/[0.04] p-3 rounded-2xl border border-white/[0.06]">
-                  <span class="text-[10px] text-gray-400 font-semibold uppercase">Alumnas Activas</span>
-                  <div class="font-display text-2xl font-black text-rose-soft">428</div>
-                  <span class="text-[10px] text-emerald-400 font-medium">+34 inscritas este mes</span>
+              <div onclick="selectClient('valentina')" class="p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] cursor-pointer flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-10 h-10 rounded-full object-cover">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h5 class="text-xs font-bold text-white">Valentina López</h5>
+                    <span class="text-[9px] text-gray-400">10:45 AM</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 truncate">Llevo 2.1 litros Ara...</p>
                 </div>
-
-                <div class="bg-white/[0.04] p-3 rounded-2xl border border-white/[0.06]">
-                  <span class="text-[10px] text-gray-400 font-semibold uppercase">Facturación del Mes</span>
-                  <div class="font-display text-xl font-black text-white">$149,372 <span class="text-[10px] text-gray-400">MXN</span></div>
-                  <span class="text-[10px] text-emerald-400 font-medium">Cobro automático Stripe</span>
+              </div>
+              <div onclick="selectClient('camila')" class="p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] cursor-pointer flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" class="w-10 h-10 rounded-full object-cover">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h5 class="text-xs font-bold text-white">Camila Torres</h5>
+                    <span class="text-[9px] text-gray-400">Ayer</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 truncate">¡Muchas gracias Ara! La verdad...</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Check-ins to Review Banner -->
-            <div class="p-3.5 rounded-2xl bg-rose-accent/10 border border-rose-accent/30 flex items-center justify-between cursor-pointer hover:bg-rose-accent/15 transition" onclick="coachReviewStudent('sofia')">
+          <!-- Active Message Thread (8 cols) -->
+          <div class="lg:col-span-8 p-6 rounded-3xl glass-panel flex flex-col h-[520px]">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
               <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-rose-accent/20 text-rose-soft flex items-center justify-center">
-                  <i data-lucide="bell-ring" class="w-4 h-4"></i>
-                </div>
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
                 <div>
-                  <h4 class="font-bold text-xs text-white">4 Check-ins por revisar</h4>
-                  <span class="text-[10px] text-gray-400">Sofía R. y 3 chicas más enviaron fotos</span>
+                  <h4 id="coach-chat-client-name" class="text-sm font-bold text-white">Sofía Ramírez</h4>
+                  <p class="text-[10px] text-gray-400">Alumna VIP • Respuesta garantizada en < 2 hrs</p>
                 </div>
               </div>
-              <button class="px-3 py-1 bg-rose-accent text-white rounded-xl text-xs font-bold shadow-glow-rose">
-                Revisar
+              <button onclick="sendCoachVoiceNote()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-rose-500/20 text-rose-300 border border-white/10 text-xs font-bold transition">
+                <i data-lucide="mic" class="w-3.5 h-3.5"></i>
+                <span>Enviar Nota de Voz</span>
               </button>
             </div>
 
-            <!-- Alumnas List (CRM) -->
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <h3 class="font-display font-bold text-xs text-white uppercase tracking-wider">Tus Alumnas Activas</h3>
-                <span class="text-[11px] text-gray-400">428 inscritas</span>
-              </div>
-
-              <!-- Student 1: Sofía -->
-              <div onclick="coachReviewStudent('sofia')" class="p-3 rounded-2xl bg-apple-card border border-rose-accent/30 flex items-center justify-between cursor-pointer hover:border-rose-accent transition">
-                <div class="flex items-center gap-2.5">
-                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover ring-2 ring-rose-accent/50">
-                  <div>
-                    <h5 class="font-bold text-xs text-white flex items-center gap-1">
-                      Sofía Ramírez <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    </h5>
-                    <span class="text-[10px] text-gray-400">Reto 21 Días Booty • <strong class="text-rose-soft">-3.3 kg</strong></span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-[10px] bg-rose-accent/20 text-rose-soft px-2 py-0.5 rounded-full font-bold">Check-in listo</span>
-                  <span class="text-[9px] text-gray-400 block mt-0.5">Hace 25 min</span>
-                </div>
-              </div>
-
-              <!-- Student 2: Valentina -->
-              <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between cursor-pointer hover:border-white/20 transition">
-                <div class="flex items-center gap-2.5">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover border border-white/20">
-                  <div>
-                    <h5 class="font-bold text-xs text-white">Valentina Gómez</h5>
-                    <span class="text-[10px] text-gray-400">Pérdida de Grasa 1800K • <strong class="text-emerald-400">-1.8 kg</strong></span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full font-bold">Al día</span>
-                  <span class="text-[9px] text-gray-400 block mt-0.5">Semana 3</span>
-                </div>
-              </div>
-
-              <!-- Student 3: Camila -->
-              <div class="p-3 rounded-2xl bg-apple-card border border-apple-cardBorder flex items-center justify-between cursor-pointer hover:border-white/20 transition">
-                <div class="flex items-center gap-2.5">
-                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover border border-white/20">
-                  <div>
-                    <h5 class="font-bold text-xs text-white">Camila Torres</h5>
-                    <span class="text-[10px] text-gray-400">Aumento Glúteo Magro • <strong class="text-rose-soft">+1.2 kg</strong></span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full font-bold">Al día</span>
-                  <span class="text-[9px] text-gray-400 block mt-0.5">Semana 4</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- COACH SCREEN 2: INBOX CON ALUMNAS -->
-          <section id="coach-view-inbox" class="coach-screen p-4 flex flex-col h-full space-y-3 hidden">
-            <div class="p-3 rounded-2xl bg-apple-card border border-rose-accent/30 flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover ring-2 ring-rose-soft">
-                <div>
-                  <h3 class="font-bold text-xs text-white">Chat con: Sofía Ramírez</h3>
-                  <span class="text-[10px] text-rose-soft">Alumna Reto 21 Días</span>
-                </div>
-              </div>
-              <button onclick="switchUserRole('client')" class="text-[10px] bg-white/10 hover:bg-white/20 text-gray-300 px-2.5 py-1 rounded-lg">
-                Ver como Alumna
-              </button>
+            <!-- Messages Thread Scroll -->
+            <div id="coach-chat-thread" class="flex-1 overflow-y-auto pr-2 space-y-3">
+              <!-- Rendered dynamically by JS -->
             </div>
 
-            <!-- Shared Chat Messages Stream (Coach view) -->
-            <div id="shared-chat-stream-coach" class="flex-1 space-y-2.5 overflow-y-auto min-h-[320px] max-h-[380px] pr-1">
-              <!-- Rendered by JS -->
-            </div>
-
-            <!-- Coach Message Input -->
-            <form onsubmit="coachSendMessage(event)" class="flex items-center gap-2 pt-1">
-              <input id="coach-msg-input" type="text" placeholder="Escribe tu respuesta a Sofía como su coach..." class="flex-1 bg-apple-card border border-rose-accent/40 rounded-2xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-rose-accent">
-              <button type="submit" class="w-10 h-10 rounded-2xl bg-rose-accent hover:bg-rose-accentHover text-white flex items-center justify-center flex-shrink-0 shadow-glow-rose transition">
+            <!-- Chat Input Form -->
+            <div class="pt-4 border-t border-white/10 flex items-center gap-2">
+              <input id="coach-chat-input" type="text" placeholder="Escribe un mensaje de coaching para Sofía..." onkeypress="if(event.key === 'Enter') sendCoachMessage()" class="flex-1 bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-400">
+              <button onclick="sendCoachMessage()" class="w-10 h-10 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white flex items-center justify-center shadow-glow-rose hover:brightness-110 active:scale-95 transition">
                 <i data-lucide="send" class="w-4 h-4"></i>
               </button>
-            </form>
-          </section>
+            </div>
 
-          <!-- Coach Bottom Navigation Bar -->
-          <nav class="w-full h-16 bg-apple-bg/95 backdrop-blur-xl border-t border-white/[0.08] px-8 flex items-center justify-around z-40 absolute bottom-0">
-            <button onclick="switchCoachTab('crm')" id="btn-coach-nav-crm" class="coach-nav-btn active flex flex-col items-center gap-1 text-rose-accent transition">
-              <i data-lucide="users" class="w-4 h-4"></i>
-              <span class="text-[10px] font-bold">Alumnas</span>
-            </button>
-            <button onclick="switchCoachTab('inbox')" id="btn-coach-nav-inbox" class="coach-nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition relative">
-              <i data-lucide="message-square" class="w-4 h-4"></i>
-              <span class="text-[10px] font-bold">Mensajes</span>
-              <span class="absolute -top-0.5 right-1 w-2 h-2 bg-rose-accent rounded-full"></span>
-            </button>
-          </nav>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 4: METRICS & NEGOCIO -->
+      <div id="coach-tab-metrics" class="hidden w-full">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div class="p-5 rounded-2xl glass-panel border border-rose-500/20">
+            <span class="text-[10px] font-bold uppercase text-gray-400 block">Facturación este Mes</span>
+            <h4 class="text-xl sm:text-2xl font-black text-emerald-400 mt-1">$149,372 MXN</h4>
+            <span class="text-[10px] text-emerald-300 font-semibold">+18% vs mes anterior</span>
+          </div>
+          <div class="p-5 rounded-2xl glass-panel border border-white/10">
+            <span class="text-[10px] font-bold uppercase text-gray-400 block">Alumnas Activas</span>
+            <h4 class="text-xl sm:text-2xl font-black text-white mt-1">428</h4>
+            <span class="text-[10px] text-rose-300 font-semibold">Capacidad: 1,500</span>
+          </div>
+          <div class="p-5 rounded-2xl glass-panel border border-white/10">
+            <span class="text-[10px] font-bold uppercase text-gray-400 block">Ticket Promedio</span>
+            <h4 class="text-xl sm:text-2xl font-black text-amber-300 mt-1">$349 MXN</h4>
+            <span class="text-[10px] text-gray-400">Suscripción recurrente</span>
+          </div>
+          <div class="p-5 rounded-2xl glass-panel border border-white/10">
+            <span class="text-[10px] font-bold uppercase text-gray-400 block">Tasa de Retención</span>
+            <h4 class="text-xl sm:text-2xl font-black text-sky-400 mt-1">94.2%</h4>
+            <span class="text-[10px] text-gray-400">Nivel clase mundial</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-panel-rose flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div>
+            <h4 class="text-lg font-black text-white">Simulador Financiero OMEN Technologies</h4>
+            <p class="text-xs text-gray-300 mt-1">Calcula cuánto puedes ganar con tus 44,000 seguidoras de Instagram bajo el modelo Revenue Share 70/30.</p>
+          </div>
+          <button onclick="openPitchModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-xs shadow-glow-rose hover:brightness-110 transition">
+            Abrir Calculadora Completa →
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 3: EXPERIENCIA DE ALUMNA (SOFÍA RAMÍREZ)                      -->
+    <!-- ================================================================= -->
+    <section id="view-client" class="hidden w-full flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      
+      <!-- Client Header Profile -->
+      <div class="p-6 rounded-3xl glass-panel mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-pink-500/20">
+        <div class="flex items-center gap-4">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" alt="Sofía Ramírez" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-rose-400 shadow">
+          <div>
+            <h2 class="text-lg sm:text-xl font-black text-white">Hola, Sofía ✨</h2>
+            <p class="text-xs text-rose-300 font-semibold">Plan VIP Booty & Glow • Coach: <strong class="text-white">Araceli Morales</strong></p>
+            <div class="flex items-center gap-2 mt-1.5 text-[10px] text-gray-400">
+              <span class="text-amber-300 font-bold">🔥 14 días de racha</span>
+              <span>•</span>
+              <span>Día actual: <strong class="text-white client-day-indicator">Lunes</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openCheckinModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
+            <i data-lucide="camera" class="w-3.5 h-3.5 text-rose-400"></i>
+            <span>📸 Check-in Semanal</span>
+          </button>
+          <button onclick="navigateTo('coach')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/30 to-amber-600/30 border border-amber-500/40 text-amber-200 text-xs font-bold transition">
+            <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>Ver como Ara (Coach)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Client Navigation Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-white/10 mb-6 scrollbar-none">
+        <button onclick="switchClientTab('nutrition')" id="btn-client-tab-nutrition" class="active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="apple" class="w-4 h-4"></i>
+          <span>Mi Nutrición de Hoy</span>
+        </button>
+        <button onclick="switchClientTab('workout')" id="btn-client-tab-workout" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="dumbbell" class="w-4 h-4"></i>
+          <span>Mi Rutina del Día</span>
+        </button>
+        <button onclick="switchClientTab('videos')" id="btn-client-tab-videos" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>Clases de Ara</span>
+        </button>
+        <button onclick="switchClientTab('chat')" id="btn-client-tab-chat" class="text-gray-400 hover:text-white flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Chat con Ara</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: CLIENT NUTRITION -->
+      <div id="client-tab-nutrition" class="w-full space-y-6">
+        
+        <!-- Day Selector for Client -->
+        <div class="flex items-center justify-between p-4 rounded-2xl glass-panel">
+          <span class="text-xs font-bold text-gray-400 flex items-center gap-1.5">
+            <i data-lucide="calendar" class="w-4 h-4 text-rose-400"></i> Ver plan de otro día:
+          </span>
+          <div class="flex items-center gap-1 overflow-x-auto scrollbar-none">
+            <button onclick="selectDay('Lunes')" data-day="Lunes" class="day-pill active px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Lun</button>
+            <button onclick="selectDay('Martes')" data-day="Martes" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Mar</button>
+            <button onclick="selectDay('Miércoles')" data-day="Miércoles" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Mié</button>
+            <button onclick="selectDay('Jueves')" data-day="Jueves" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Jue</button>
+            <button onclick="selectDay('Viernes')" data-day="Viernes" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Vie</button>
+            <button onclick="selectDay('Sábado')" data-day="Sábado" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Sáb</button>
+            <button onclick="selectDay('Domingo')" data-day="Domingo" class="day-pill px-3 py-1 rounded-lg text-[11px] font-bold border border-white/10 transition">Dom</button>
+          </div>
+        </div>
+
+        <!-- Apple Rings Hero Card -->
+        <div class="p-6 rounded-3xl glass-panel-rose grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+          
+          <!-- Apple Concentric Rings SVG (5 cols) -->
+          <div class="md:col-span-5 flex flex-col items-center justify-center">
+            <div class="relative w-48 h-48 flex items-center justify-center">
+              <svg class="w-full h-full" viewBox="0 0 160 160">
+                <!-- Background Rings -->
+                <circle cx="80" cy="80" r="70" stroke="rgba(255, 45, 85, 0.15)" stroke-width="12" fill="none"/>
+                <circle cx="80" cy="80" r="52" stroke="rgba(251, 113, 133, 0.15)" stroke-width="12" fill="none"/>
+                <circle cx="80" cy="80" r="34" stroke="rgba(56, 189, 248, 0.15)" stroke-width="12" fill="none"/>
+
+                <!-- Progress Rings -->
+                <circle id="client-ring-cal" class="apple-ring" cx="80" cy="80" r="70" stroke="#FF2D55" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="440" stroke-dashoffset="100"/>
+                <circle id="client-ring-prot" class="apple-ring" cx="80" cy="80" r="52" stroke="#FB7185" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="326" stroke-dashoffset="50"/>
+                <circle id="client-ring-water" class="apple-ring" cx="80" cy="80" r="34" stroke="#38BDF8" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="213" stroke-dashoffset="60"/>
+              </svg>
+
+              <!-- Inner Badge -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <i data-lucide="flame" class="w-5 h-5 text-rose-400"></i>
+                <span id="client-cal-target" class="text-xl font-black text-white mt-0.5">1,850</span>
+                <span class="text-[9px] text-gray-400 font-mono uppercase">kcal meta</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-gray-400 mt-2">Anillos de Actividad Estilo Apple Watch</p>
+          </div>
+
+          <!-- Macros Legend & Water Counter (7 cols) -->
+          <div class="md:col-span-7 flex flex-col gap-4">
+            <div>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-rose-300 font-bold">ASIGNADO POR ARACELI MORALES</span>
+              <h3 class="text-xl font-black text-white mt-1">Objetivos Nutricionales del Día</h3>
+              <p class="text-xs text-gray-300 mt-1">Sincronizado en tiempo real con las modificaciones que hace tu coach.</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                <span class="text-[10px] font-bold text-rose-400 block uppercase">Proteína</span>
+                <h4 id="client-prot-target" class="text-base font-black text-white mt-0.5">135g</h4>
+                <span class="text-[9px] text-gray-400">112g consumidos</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                <span class="text-[10px] font-bold text-amber-300 block uppercase">Carbohidratos</span>
+                <h4 id="client-carb-target" class="text-base font-black text-white mt-0.5">180g</h4>
+                <span class="text-[9px] text-gray-400">Energía limpia</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-black/40 border border-white/5">
+                <span class="text-[10px] font-bold text-sky-400 block uppercase">Grasas Saludables</span>
+                <h4 id="client-fat-target" class="text-base font-black text-white mt-0.5">52g</h4>
+                <span class="text-[9px] text-gray-400">Hormonal fit</span>
+              </div>
+            </div>
+
+            <!-- Water Tracker Section -->
+            <div class="p-3 rounded-2xl bg-sky-950/20 border border-sky-500/20 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center">
+                  <i data-lucide="droplet" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h5 class="text-xs font-bold text-white">Hidratación Diaria</h5>
+                  <span id="client-water-counter" class="text-[11px] text-sky-300 font-mono font-bold">1.8L / 3.0L</span>
+                </div>
+              </div>
+              <button onclick="addWater(250)" class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-sky-500 text-white font-bold text-xs shadow hover:bg-sky-400 active:scale-95 transition">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                <span>+250 ml</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Meals Programmed by Ara for Today -->
+        <div>
+          <h3 class="text-sm font-black text-white uppercase tracking-wider mb-3">Menú Programado para Hoy</h3>
+          <div id="client-meals-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Rendered dynamically by JS -->
+          </div>
         </div>
 
       </div>
-    </div>
+
+      <!-- TAB 2: CLIENT WORKOUT -->
+      <div id="client-tab-workout" class="hidden w-full space-y-6">
+        
+        <!-- Workout Header Card -->
+        <div class="p-6 rounded-3xl glass-panel-rose flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-300 bg-rose-500/20 px-2.5 py-0.5 rounded-full border border-rose-500/30">
+              SESIÓN PROGRAMADA POR ARA
+            </span>
+            <h3 id="client-workout-title" class="text-xl sm:text-2xl font-black text-white mt-2">Booty Sculpt & Femorales</h3>
+            <p class="text-xs text-gray-300 mt-1">
+              Enfoque: <strong id="client-workout-focus" class="text-white">Glúteo Máximo + Isquios</strong> • Duración: <strong id="client-workout-duration" class="text-white">55 min</strong>
+            </p>
+          </div>
+
+          <!-- Rest Timer Widget -->
+          <div class="flex items-center gap-3 bg-black/40 p-3 rounded-2xl border border-white/10">
+            <div class="text-right">
+              <span class="text-[9px] text-gray-400 block uppercase">Temporizador Descanso</span>
+              <span id="rest-timer-display" class="text-base font-mono font-black text-rose-300">45s</span>
+            </div>
+            <button onclick="startRestTimer()" id="btn-start-timer" class="px-3 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-xs shadow-glow-rose hover:brightness-110 active:scale-95 transition">
+              Iniciar Descanso (45s)
+            </button>
+          </div>
+        </div>
+
+        <!-- Exercises List -->
+        <div id="client-exercises-container" class="space-y-4">
+          <!-- Rendered dynamically by JS -->
+        </div>
+
+      </div>
+
+      <!-- TAB 3: CLIENT VIDEOS -->
+      <div id="client-tab-videos" class="hidden w-full space-y-6">
+        <div>
+          <h3 class="text-lg font-black text-white">Clases Exclusivas & Masterclasses</h3>
+          <p class="text-xs text-gray-400">Aprende la técnica perfecta directamente con Araceli Morales</p>
+        </div>
+
+        <div id="client-videos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 4: CLIENT CHAT -->
+      <div id="client-tab-chat" class="hidden w-full">
+        <div class="p-6 rounded-3xl glass-panel flex flex-col h-[520px]">
+          
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100" class="w-10 h-10 rounded-full object-cover border-2 border-rose-400 shadow">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-sm font-bold text-white">Coach Araceli Morales</h4>
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-rose-400"></i>
+                </div>
+                <p class="text-[10px] text-emerald-400">● En línea ahora</p>
+              </div>
+            </div>
+            <button onclick="openCheckinModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white text-xs font-bold shadow-glow-rose transition">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+              <span>Enviar Check-in con Fotos</span>
+            </button>
+          </div>
+
+          <!-- Messages Thread Scroll -->
+          <div id="client-chat-thread" class="flex-1 overflow-y-auto pr-2 space-y-3">
+            <!-- Rendered dynamically by JS -->
+          </div>
+
+          <!-- Chat Input -->
+          <div class="pt-4 border-t border-white/10 flex items-center gap-2">
+            <input id="client-chat-input" type="text" placeholder="Escríbele una duda o consulta a tu coach Ara..." onkeypress="if(event.key === 'Enter') sendClientMessage()" class="flex-1 bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-400">
+            <button onclick="sendClientMessage()" class="w-10 h-10 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white flex items-center justify-center shadow-glow-rose hover:brightness-110 active:scale-95 transition">
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
   </main>
 
-  <!-- ==================== MODAL 1: REVISIÓN DE CHECK-IN (PARA LA COACH ARACELI) ==================== -->
-  <div id="modal-review-checkin" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="w-full max-w-[400px] bg-apple-bg rounded-3xl border border-rose-accent/30 overflow-hidden shadow-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover ring-2 ring-rose-accent">
-          <div>
-            <h3 class="font-display font-bold text-sm text-white">Check-in: Sofía Ramírez</h3>
-            <span class="text-[10px] text-gray-400">Semana 2 • Reto 21 Días Booty</span>
-          </div>
-        </div>
-        <button onclick="closeModal('modal-review-checkin')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
+  <!-- ==================== GLOBAL LUXURY MODALS ==================== -->
 
-      <!-- Measurements Submitted -->
-      <div class="grid grid-cols-3 gap-2 text-center text-xs">
-        <div class="bg-white/[0.04] p-2.5 rounded-xl border border-white/5">
-          <span class="text-[10px] text-gray-400 block">Peso</span>
-          <strong class="text-rose-soft text-sm">58.2 kg</strong>
-          <span class="text-[9px] text-emerald-400 block">-3.3 kg bajados</span>
-        </div>
-        <div class="bg-white/[0.04] p-2.5 rounded-xl border border-white/5">
-          <span class="text-[10px] text-gray-400 block">Cintura</span>
-          <strong class="text-white text-sm">66 cm</strong>
-          <span class="text-[9px] text-emerald-400 block">-4 cm reducción</span>
-        </div>
-        <div class="bg-white/[0.04] p-2.5 rounded-xl border border-white/5">
-          <span class="text-[10px] text-gray-400 block">Cadera</span>
-          <strong class="text-apple-gold text-sm">98 cm</strong>
-          <span class="text-[9px] text-apple-gold block">+2 cm magro</span>
-        </div>
-      </div>
-
-      <!-- Photos Submitted -->
-      <div class="space-y-1.5">
-        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Fotos de Progreso Enviadas:</span>
-        <div class="grid grid-cols-2 gap-2">
-          <div class="h-36 rounded-xl overflow-hidden bg-black/40 border border-white/10">
-            <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-          </div>
-          <div class="h-36 rounded-xl overflow-hidden bg-black/40 border border-white/10">
-            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-          </div>
-        </div>
-      </div>
-
-      <!-- Coach Feedback Input -->
-      <div class="space-y-1.5">
-        <label class="text-xs font-bold text-rose-soft block">Tu Mensaje de Retroalimentación:</label>
-        <textarea id="coach-feedback-text" rows="3" class="w-full bg-apple-card border border-white/15 rounded-xl p-3 text-xs text-white focus:border-rose-accent outline-none" placeholder="Escribe tu feedback para Sofía...">¡Vas espectacular Sofi! Se nota mucho la reducción en cintura y tus glúteos están tomando esa forma redonda que buscabas. Mantenemos mismos pesos para esta semana 3 🔥🍑</textarea>
-      </div>
-
-      <button onclick="coachApproveCheckin()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-accent to-pink-600 hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider shadow-glow-rose transition">
-        Aprobar y Enviar Retroalimentación a Sofía ✨
+  <!-- MODAL: UPLOAD VIDEO (FOR ARA) -->
+  <div id="modal-upload-video" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="w-full max-w-lg rounded-3xl glass-panel-rose p-6 sm:p-8 relative border border-rose-500/40 shadow-2xl">
+      <button onclick="closeUploadVideoModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
       </button>
-    </div>
-  </div>
 
-  <!-- ==================== MODAL 2: CLIENTE ENVIAR CHECK-IN ==================== -->
-  <div id="modal-client-checkin" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="w-full max-w-[400px] bg-apple-bg rounded-3xl border border-rose-accent/30 overflow-hidden shadow-2xl p-5 space-y-3 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between">
-        <h3 class="font-display font-bold text-base text-white">Enviar Check-in Semanal a Ara</h3>
-        <button onclick="closeModal('modal-client-checkin')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+          <i data-lucide="video" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-black text-white">Subir Nueva Masterclass</h3>
+          <p class="text-xs text-gray-400">Se publicará instantáneamente en el feed de todas tus alumnas</p>
+        </div>
       </div>
 
-      <div class="space-y-2.5 text-xs">
+      <form onsubmit="submitUploadVideo(event)" class="space-y-4">
         <div>
-          <label class="text-gray-400 block mb-1">Peso en ayunas hoy (kg):</label>
-          <input type="number" step="0.1" value="58.2" class="w-full bg-apple-card border border-white/15 rounded-xl px-3 py-2 text-white">
+          <label class="text-xs font-bold text-gray-300 block mb-1">Título de la Clase / Video</label>
+          <input id="video-input-title" type="text" required placeholder="Ej. Técnica de Aislamiento de Glúteo en Polea" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-rose-400">
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-gray-400 block mb-1">Cintura (cm):</label>
-            <input type="number" value="66" class="w-full bg-apple-card border border-white/15 rounded-xl px-3 py-2 text-white">
+            <label class="text-xs font-bold text-gray-300 block mb-1">Categoría</label>
+            <select id="video-input-category" class="w-full bg-[#1A1524] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-400">
+              <option value="Glúteos & Pierna">Glúteos & Pierna</option>
+              <option value="Cardio & HIIT">Cardio & HIIT</option>
+              <option value="Nutrición & Macros">Nutrición & Macros</option>
+              <option value="Mindset & Hábitos">Mindset & Hábitos</option>
+            </select>
           </div>
           <div>
-            <label class="text-gray-400 block mb-1">Cadera (cm):</label>
-            <input type="number" value="98" class="w-full bg-apple-card border border-white/15 rounded-xl px-3 py-2 text-white">
+            <label class="text-xs font-bold text-gray-300 block mb-1">Duración (min)</label>
+            <input id="video-input-duration" type="text" placeholder="Ej. 14:30 min" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-rose-400">
           </div>
         </div>
 
         <div>
-          <label class="text-gray-400 block mb-1">Fotos de Progreso (Frente, Perfil, Espalda):</label>
-          <div onclick="simulatePhotoSelect()" class="border-2 border-dashed border-rose-accent/30 rounded-xl p-4 text-center cursor-pointer hover:border-rose-accent transition">
-            <i data-lucide="camera" class="w-6 h-6 text-rose-soft mx-auto mb-1"></i>
-            <span class="text-xs text-gray-200 block font-bold" id="photo-upload-label">✓ 3 Fotos Seleccionadas</span>
-            <span class="text-[10px] text-gray-500">Privadas y solo visibles para Araceli</span>
+          <label class="text-xs font-bold text-gray-300 block mb-1">Descripción o Notas Clave</label>
+          <textarea id="video-input-desc" rows="3" placeholder="Explica qué van a aprender y qué equipo necesitan..." class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-rose-400"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeUploadVideoModal()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 text-white text-xs font-bold shadow-glow-rose transition active:scale-95">
+            Publicar Video en la App
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VIDEO PLAYER -->
+  <div id="modal-video-player" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-4">
+    <div class="w-full max-w-3xl rounded-3xl glass-panel p-6 relative border border-white/15 shadow-2xl">
+      <button onclick="closeVideoPlayer()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black mb-4">
+        <img id="player-video-poster" src="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <div class="w-16 h-16 rounded-full bg-rose-500/90 text-white flex items-center justify-center shadow-glow-rose">
+            <i data-lucide="play" class="w-7 h-7 fill-current ml-1"></i>
           </div>
         </div>
       </div>
 
-      <button onclick="clientSubmitCheckin()" class="w-full py-3 rounded-2xl bg-rose-accent hover:bg-rose-accentHover text-white font-extrabold text-xs uppercase tracking-wider shadow-glow-rose transition">
-        Enviar a Araceli Morales 💌
-      </button>
+      <span id="player-video-category" class="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-1"></span>
+      <h3 id="player-video-title" class="text-lg font-black text-white"></h3>
+      <p id="player-video-desc" class="text-xs text-gray-300 mt-2 leading-relaxed"></p>
     </div>
   </div>
 
-  <!-- ==================== MODAL 3: PITCH DECK & CALCULADORA OMEN EN VIVO ==================== -->
-  <div id="modal-pitch" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div class="w-full max-w-[420px] bg-apple-bg rounded-3xl border-2 border-rose-accent/50 overflow-hidden shadow-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between">
+  <!-- MODAL: CHECK-IN SEMANAL (FOR SOFIA) -->
+  <div id="modal-checkin" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="w-full max-w-md rounded-3xl glass-panel-rose p-6 sm:p-8 relative border border-rose-500/40 shadow-2xl">
+      <button onclick="closeCheckinModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+          <i data-lucide="camera" class="w-5 h-5"></i>
+        </div>
         <div>
-          <span class="text-[10px] font-black text-rose-soft uppercase tracking-wider bg-rose-accent/15 px-2 py-0.5 rounded">OMEN TECH × ARACELI MORALES</span>
-          <h3 class="font-display font-black text-xl text-white mt-1">Calculadora para tus 44K Fans</h3>
+          <h3 class="text-base font-black text-white">Check-in Semanal con Ara</h3>
+          <p class="text-xs text-gray-400">Reporte privado para ajuste de macros y rutina</p>
         </div>
-        <button onclick="closeModal('modal-pitch')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">
-          <i data-lucide="x" class="w-4 h-4"></i>
+      </div>
+
+      <form onsubmit="submitCheckin(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-gray-300 block mb-1">Peso Corporal en Ayunas (kg)</label>
+          <input id="checkin-weight" type="text" value="58.0 kg" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-white font-bold focus:outline-none focus:border-rose-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-gray-300 block mb-1">Cintura (cm)</label>
+            <input type="text" value="64 cm" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-white focus:outline-none">
+          </div>
+          <div>
+            <label class="font-bold text-gray-300 block mb-1">Cadera / Glúteo (cm)</label>
+            <input type="text" value="98 cm" class="w-full bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2 text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-gray-300 block mb-1">Fotos de Progreso (Frente & Espalda)</label>
+          <div class="p-4 rounded-2xl border-2 border-dashed border-rose-500/30 text-center cursor-pointer bg-white/[0.02] hover:bg-white/[0.05] transition">
+            <i data-lucide="image" class="w-6 h-6 text-rose-400 mx-auto mb-1"></i>
+            <span class="text-gray-300 font-medium">Fotos cargadas: <strong class="text-rose-300">2 archivos listos</strong></span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold shadow-glow-rose hover:brightness-110 active:scale-95 transition">
+          Enviar Reporte a mi Coach Ara
         </button>
-      </div>
-
-      <p class="text-xs text-gray-300">
-        ¿Qué pasa si convertimos tus seguidores de Instagram en una membresía recurrente mensual en tu app oficial?
-      </p>
-
-      <!-- Sliders -->
-      <div class="space-y-3 bg-apple-card p-4 rounded-2xl border border-apple-cardBorder">
-        <div class="space-y-1">
-          <div class="flex justify-between text-xs">
-            <span class="text-gray-300">Seguidoras que se suscriben (% de 44,000):</span>
-            <span id="pitch-rate-val" class="text-rose-soft font-bold font-mono">1.5% (660 alumnas)</span>
-          </div>
-          <input type="range" id="pitch-rate-slider" min="0.5" max="5.0" step="0.1" value="1.5" oninput="updatePitchCalc()" class="w-full accent-rose-accent cursor-pointer">
-        </div>
-
-        <div class="space-y-1">
-          <div class="flex justify-between text-xs">
-            <span class="text-gray-300">Membresía mensual:</span>
-            <span id="pitch-price-val" class="text-apple-gold font-bold font-mono">$349 MXN</span>
-          </div>
-          <input type="range" id="pitch-price-slider" min="199" max="699" step="25" value="349" oninput="updatePitchCalc()" class="w-full accent-apple-gold cursor-pointer">
-        </div>
-
-        <!-- Result -->
-        <div class="p-3.5 rounded-xl bg-gradient-to-r from-rose-darkGlow to-black border border-rose-accent/40 text-center space-y-0.5">
-          <span class="text-[10px] text-gray-400 uppercase font-semibold">Tus Ganancias Mensuales Estimadas:</span>
-          <div class="font-display text-3xl font-black text-rose-soft" id="pitch-monthly-result">$230,340 MXN</div>
-          <span class="text-xs text-gray-300 block">Al año representa: <strong class="text-white font-mono" id="pitch-annual-result">$2,764,080 MXN</strong></span>
-        </div>
-      </div>
-
-      <!-- OMEN Partnership Perks -->
-      <div class="space-y-2 text-xs text-gray-300">
-        <div class="flex items-start gap-2">
-          <i data-lucide="check" class="w-4 h-4 text-rose-soft flex-shrink-0 mt-0.5"></i>
-          <span><strong>Cero inversión para Araceli:</strong> OMEN absorbe el 100% de los costos de servidores, código y pasarelas de pago.</span>
-        </div>
-        <div class="flex items-start gap-2">
-          <i data-lucide="check" class="w-4 h-4 text-rose-soft flex-shrink-0 mt-0.5"></i>
-          <span><strong>Modelo Revenue Share ganar-ganar:</strong> Tú eres la cara y dueña de tu comunidad; nosotros nos encargamos de que la tecnología nunca falle.</span>
-        </div>
-      </div>
-
-      <button onclick="celebratePitch()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-accent to-pink-600 hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider shadow-glow-rose transition">
-        ¡Hacer Alianza OMEN × Araceli! 🚀
-      </button>
+      </form>
     </div>
   </div>
 
-  <!-- Toast System -->
-  <div id="toast" class="fixed top-4 z-50 bg-[#14121E] border border-rose-accent/40 text-white text-xs px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-2 opacity-0 transform -translate-y-4 pointer-events-none transition-all duration-300 max-w-[340px]">
-    <i data-lucide="sparkles" class="w-4 h-4 text-rose-soft flex-shrink-0"></i>
-    <span id="toast-text">Notificación</span>
+  <!-- MODAL: PROPUESTA DE NEGOCIO OMEN ($) -->
+  <div id="modal-pitch" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 overflow-y-auto">
+    <div class="w-full max-w-2xl rounded-3xl glass-panel-rose p-6 sm:p-8 relative border border-rose-500/40 shadow-2xl my-8">
+      <button onclick="closePitchModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-amber-400 p-[1px] flex items-center justify-center shadow-glow-rose">
+          <div class="w-full h-full bg-[#120D1A] rounded-[15px] flex items-center justify-center">
+            <i data-lucide="calculator" class="w-5 h-5 text-rose-300"></i>
+          </div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono font-bold text-amber-300 uppercase tracking-widest">ALIANZA ESTRATÉGICA OMEN</span>
+          <h3 class="text-xl font-black text-white">Calculadora de Negocio para Araceli Morales</h3>
+        </div>
+      </div>
+
+      <div class="space-y-5 text-xs text-gray-300">
+        
+        <!-- Interactive Sliders -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-white/10 space-y-4">
+          <div>
+            <div class="flex items-center justify-between font-bold mb-1.5">
+              <span>% de Conversión de tus 44k Seguidoras</span>
+              <span id="calc-val-conv" class="text-rose-400 font-mono text-sm">1.5%</span>
+            </div>
+            <input id="slider-conv" type="range" min="0.5" max="4.0" step="0.1" value="1.5" oninput="updatePitchCalculator()" class="w-full accent-rose-500">
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between font-bold mb-1.5">
+              <span>Precio de Membresía Mensual</span>
+              <span id="calc-val-price" class="text-amber-300 font-mono text-sm">$349 MXN</span>
+            </div>
+            <input id="slider-price" type="range" min="199" max="699" step="50" value="349" oninput="updatePitchCalculator()" class="w-full accent-amber-400">
+          </div>
+        </div>
+
+        <!-- Calculated Totals -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <div class="p-3 rounded-2xl bg-white/[0.04] border border-white/5">
+            <span class="text-[9px] text-gray-400 uppercase font-bold block">Alumnas</span>
+            <h5 id="calc-val-clients" class="text-sm font-black text-white mt-1">660</h5>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/[0.04] border border-white/5">
+            <span class="text-[9px] text-gray-400 uppercase font-bold block">Facturación Mes</span>
+            <h5 id="calc-val-gross" class="text-sm font-black text-gray-200 mt-1">$230,340 MXN</h5>
+          </div>
+          <div class="p-3 rounded-2xl bg-gradient-to-b from-rose-950/40 to-pink-950/40 border border-rose-500/30">
+            <span class="text-[9px] text-rose-300 uppercase font-bold block">Tu Ganancia (70%)</span>
+            <h5 id="calc-val-ara" class="text-sm font-black text-rose-300 mt-1">$161,238 MXN</h5>
+          </div>
+          <div class="p-3 rounded-2xl bg-gradient-to-b from-amber-950/40 to-yellow-950/40 border border-amber-500/30">
+            <span class="text-[9px] text-amber-300 uppercase font-bold block">Tu Ganancia Anual</span>
+            <h5 id="calc-val-yearly" class="text-sm font-black text-amber-200 mt-1">$1.93M MXN</h5>
+          </div>
+        </div>
+
+        <!-- Partnership Conditions -->
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2 text-[11px]">
+          <h5 class="font-bold text-white text-xs">Condiciones de Alianza OMEN:</h5>
+          <p>• <strong>Cero costo inicial:</strong> OMEN cubre el 100% de desarrollo, servidores, cobros con tarjeta y soporte técnico.</p>
+          <p>• <strong>Modelo 70/30:</strong> El 70% de cada suscripción va directo a tu cuenta bancaria cada mes.</p>
+          <p>• <strong>Control total de tu marca:</strong> La app lleva tu nombre, tus fotos, tus rutinas y tu estilo exclusivo.</p>
+        </div>
+
+      </div>
+    </div>
   </div>
 
-  <!-- App Script -->
+  <!-- Scripts -->
   <script src="app.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('PWA Service Worker registered:', reg.scope))
-          .catch(err => console.log('SW registration failed:', err));
-      });
-    }
-  </script>
 </body>
 </html>
