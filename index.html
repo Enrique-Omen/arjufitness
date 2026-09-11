@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ARJU FITNESS | Araceli Morales App Oficial</title>
+  <meta name="description" content="App oficial de entrenamiento, nutrición y comunidad VIP de Araceli Morales (@aracelimorales_fit)">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              lime: '#CCFF00',
+              limeHover: '#B8E600',
+              pink: '#FF2A85',
+              dark: '#0A0B0E',
+              card: '#13151D',
+              cardBorder: '#232736',
+              muted: '#7A8299'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif']
+          },
+          boxShadow: {
+            'glow-lime': '0 0 25px rgba(204, 255, 0, 0.25)',
+            'glow-pink': '0 0 25px rgba(255, 42, 133, 0.3)',
+            'device': '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 12px #1E212B, 0 0 0 14px #2F3547'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#060709] text-gray-100 font-sans min-h-screen antialiased flex flex-col items-center justify-start selection:bg-brand-lime selection:text-black">
+
+  <!-- Desktop Presentation Bar (Only shows on wide screens) -->
+  <header class="w-full bg-[#0D0F15]/90 border-b border-white/10 backdrop-blur-md sticky top-0 z-50 py-3 px-4 sm:px-8 hidden lg:flex items-center justify-between shadow-lg">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-lime to-emerald-400 flex items-center justify-center font-display font-black text-black text-lg shadow-glow-lime">
+        AM
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-display font-bold text-base text-white tracking-wide">ARJU FITNESS</h1>
+          <span class="bg-brand-lime/15 text-brand-lime text-[11px] font-semibold px-2 py-0.5 rounded-full border border-brand-lime/30">DEMO VIP OFICIAL</span>
+        </div>
+        <p class="text-xs text-brand-muted">Propuesta de App Exclusiva para <span class="text-white font-semibold">Araceli Morales</span> (44k IG)</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 text-xs text-gray-300 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+        <span class="w-2 h-2 rounded-full bg-brand-lime animate-pulse"></span>
+        <span>Simulador Móvil iPhone 16 Pro</span>
+      </div>
+
+      <!-- Quick Toggle for Pitch Deck Mode -->
+      <button id="btn-desktop-pitch" onclick="switchTab('pitch')" class="flex items-center gap-2 bg-gradient-to-r from-brand-pink to-purple-600 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-xl shadow-glow-pink transition-all transform hover:-translate-y-0.5">
+        <i data-lucide="trending-up" class="w-4 h-4"></i>
+        <span>Ver Propuesta & Ganancias ($)</span>
+      </button>
+
+      <!-- Viewport toggle: Phone frame vs Fullscreen -->
+      <button onclick="toggleDeviceView()" id="btn-device-toggle" class="flex items-center gap-2 bg-white/10 hover:bg-white/15 text-gray-200 text-xs px-3 py-2 rounded-xl transition-all">
+        <i data-lucide="smartphone" class="w-4 h-4"></i>
+        <span id="device-toggle-text">Modo Celular</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container / Device Frame Wrapper -->
+  <main class="w-full flex-1 flex items-center justify-center p-0 sm:p-4 lg:p-8">
+    <div id="device-container" class="w-full max-w-[430px] min-h-screen sm:min-h-[890px] sm:max-h-[920px] bg-brand-dark sm:rounded-[48px] sm:shadow-device border-0 sm:border-[8px] sm:border-[#1C1F2B] relative flex flex-col overflow-hidden transition-all duration-300">
+      
+      <!-- iPhone Dynamic Island & Status Bar (Simulated) -->
+      <div class="w-full pt-2 px-6 flex justify-between items-center text-xs font-semibold text-gray-300 z-40 bg-brand-dark/95 backdrop-blur-sm select-none">
+        <span id="live-time">9:41</span>
+        <div class="w-28 h-5 bg-black rounded-full mx-auto hidden sm:flex items-center justify-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-emerald-500/80 animate-ping"></div>
+          <span class="text-[9px] text-gray-400 font-mono">Arju Live</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-gray-300">
+          <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+          <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+          <i data-lucide="battery" class="w-4 h-4 text-brand-lime"></i>
+        </div>
+      </div>
+
+      <!-- App Top Navigation Bar -->
+      <nav class="w-full px-5 py-3 flex items-center justify-between border-b border-white/5 bg-brand-dark/90 backdrop-blur-md z-30 sticky top-0">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-full ring-2 ring-brand-lime p-0.5 overflow-hidden shadow-glow-lime cursor-pointer" onclick="openStory(0)">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=150&auto=format&fit=crop&q=80" alt="Araceli Morales" class="w-full h-full object-cover rounded-full">
+            </div>
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-brand-lime border-2 border-brand-dark rounded-full"></span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-extrabold text-sm tracking-wide text-white">ARACELI MORALES</span>
+              <i data-lucide="badge-check" class="w-4 h-4 text-blue-400 fill-blue-400"></i>
+            </div>
+            <span class="text-[10px] text-brand-lime font-medium flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-lime animate-pulse"></span>
+              En vivo con 44K alumnas
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Notification Bell -->
+          <button onclick="showToast('Tienes 3 notificaciones nuevas de Araceli: Nueva rutina de glúteo disponible.')" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-brand-lime hover:bg-white/10 transition relative">
+            <i data-lucide="bell" class="w-4 h-4"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-pink rounded-full"></span>
+          </button>
+          
+          <!-- Pitch Mode Quick Badge -->
+          <button onclick="switchTab('pitch')" class="px-2.5 py-1 rounded-full bg-gradient-to-r from-brand-lime/20 to-emerald-500/20 border border-brand-lime/40 text-[10px] font-bold text-brand-lime flex items-center gap-1 shadow-sm hover:scale-105 transition">
+            <i data-lucide="sparkles" class="w-3 h-3"></i>
+            <span>PITCH</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Scrollable App Content Views Area -->
+      <div id="content-scrollable" class="flex-1 overflow-y-auto overflow-x-hidden pb-24 text-sm relative scroll-smooth">
+        
+        <!-- ==================== VIEW 1: HOME ==================== -->
+        <section id="view-home" class="view-panel active p-4 space-y-5">
+          
+          <!-- Stories Bar -->
+          <div class="overflow-x-auto no-scrollbar py-1">
+            <div class="flex items-center gap-3 w-max">
+              <!-- Story: Araceli Live -->
+              <div class="flex flex-col items-center gap-1 cursor-pointer group" onclick="openStory(0)">
+                <div class="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-lime via-yellow-400 to-brand-pink group-hover:scale-105 transition duration-300">
+                  <div class="w-full h-full rounded-full overflow-hidden border-2 border-brand-dark">
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Story 1">
+                  </div>
+                </div>
+                <span class="text-[11px] font-medium text-gray-200">Motivación</span>
+              </div>
+
+              <!-- Story 2: Booty Day -->
+              <div class="flex flex-col items-center gap-1 cursor-pointer group" onclick="openStory(1)">
+                <div class="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-pink to-purple-500 group-hover:scale-105 transition duration-300">
+                  <div class="w-full h-full rounded-full overflow-hidden border-2 border-brand-dark">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Story 2">
+                  </div>
+                </div>
+                <span class="text-[11px] font-medium text-gray-200">Glúteos 🍑</span>
+              </div>
+
+              <!-- Story 3: Recetas -->
+              <div class="flex flex-col items-center gap-1 cursor-pointer group" onclick="openStory(2)">
+                <div class="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-emerald-400 to-brand-lime group-hover:scale-105 transition duration-300">
+                  <div class="w-full h-full rounded-full overflow-hidden border-2 border-brand-dark">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Story 3">
+                  </div>
+                </div>
+                <span class="text-[11px] font-medium text-gray-200">Meal Prep</span>
+              </div>
+
+              <!-- Story 4: Check-in -->
+              <div class="flex flex-col items-center gap-1 cursor-pointer group" onclick="openStory(3)">
+                <div class="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-blue-400 to-indigo-600 group-hover:scale-105 transition duration-300">
+                  <div class="w-full h-full rounded-full overflow-hidden border-2 border-brand-dark">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Story 4">
+                  </div>
+                </div>
+                <span class="text-[11px] font-medium text-gray-200">Resultados</span>
+              </div>
+
+              <!-- Story 5: Q&A -->
+              <div class="flex flex-col items-center gap-1 cursor-pointer group" onclick="openStory(4)">
+                <div class="w-16 h-16 rounded-full p-[2.5px] bg-white/20 group-hover:scale-105 transition duration-300">
+                  <div class="w-full h-full rounded-full overflow-hidden border-2 border-brand-dark flex items-center justify-center bg-[#171A24]">
+                    <i data-lucide="message-circle-question" class="w-6 h-6 text-brand-lime"></i>
+                  </div>
+                </div>
+                <span class="text-[11px] font-medium text-gray-200">Q&A Ara</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Greeting & Streak Banner -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#181B26] via-[#131520] to-[#0D0E15] p-5 border border-white/10 shadow-xl">
+            <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-brand-lime/10 rounded-full blur-2xl"></div>
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold uppercase tracking-wider text-brand-muted">Jueves, Semana 2</span>
+                <div class="flex items-center gap-1.5 bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2.5 py-0.5 rounded-full text-xs font-bold">
+                  <i data-lucide="flame" class="w-3.5 h-3.5 fill-orange-400"></i>
+                  <span>Racha de 14 Días</span>
+                </div>
+              </div>
+              <h2 class="font-display text-2xl font-black text-white leading-tight mb-1">
+                ¡A romperla hoy, Campeona! 💪
+              </h2>
+              <p class="text-xs text-gray-400 mb-4">
+                Tienes programada tu sesión favorita: <strong class="text-white">Glúteos de Acero & Isquios</strong>.
+              </p>
+
+              <!-- Progress Bar -->
+              <div class="space-y-1.5 mb-4">
+                <div class="flex justify-between text-xs">
+                  <span class="text-gray-400">Reto 21 Días Booty</span>
+                  <span class="text-brand-lime font-bold">Día 8 / 21 (38%)</span>
+                </div>
+                <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
+                  <div class="bg-gradient-to-r from-brand-lime to-emerald-400 h-full rounded-full w-[38%] transition-all duration-1000"></div>
+                </div>
+              </div>
+
+              <!-- Main Action CTA -->
+              <button onclick="startWorkout('booty-sculpt')" class="w-full py-3.5 px-4 rounded-2xl bg-brand-lime hover:bg-brand-limeHover text-black font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow-lime transition transform active:scale-98">
+                <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+                <span>Iniciar Rutina de Hoy (42 min)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats Row (Daily Vitals) -->
+          <div class="grid grid-cols-3 gap-2.5">
+            <!-- Calories -->
+            <div class="bg-brand-card p-3 rounded-2xl border border-brand-cardBorder flex flex-col items-center text-center">
+              <div class="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center mb-1 text-red-400">
+                <i data-lucide="flame" class="w-4 h-4"></i>
+              </div>
+              <span class="font-display font-extrabold text-white text-base">480</span>
+              <span class="text-[10px] text-brand-muted">Kcal Quemadas</span>
+            </div>
+
+            <!-- Active Time -->
+            <div class="bg-brand-card p-3 rounded-2xl border border-brand-cardBorder flex flex-col items-center text-center">
+              <div class="w-8 h-8 rounded-full bg-brand-lime/10 flex items-center justify-center mb-1 text-brand-lime">
+                <i data-lucide="timer" class="w-4 h-4"></i>
+              </div>
+              <span class="font-display font-extrabold text-white text-base">45</span>
+              <span class="text-[10px] text-brand-muted">Minutos Hoy</span>
+            </div>
+
+            <!-- Water -->
+            <div class="bg-brand-card p-3 rounded-2xl border border-brand-cardBorder flex flex-col items-center text-center cursor-pointer hover:border-blue-500/50 transition" onclick="addWaterCup()">
+              <div class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-1 text-blue-400">
+                <i data-lucide="droplet" class="w-4 h-4 fill-blue-400"></i>
+              </div>
+              <span class="font-display font-extrabold text-white text-base" id="home-water-val">1.8 L</span>
+              <span class="text-[10px] text-brand-muted">+250ml agua</span>
+            </div>
+          </div>
+
+          <!-- Featured Workout Card -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-bold text-white text-base tracking-wide flex items-center gap-2">
+                <i data-lucide="dumbbell" class="w-4 h-4 text-brand-lime"></i>
+                <span>Rutina Destacada de Araceli</span>
+              </h3>
+              <button onclick="switchTab('workouts')" class="text-xs text-brand-lime hover:underline font-semibold">Ver todas</button>
+            </div>
+
+            <div class="relative rounded-3xl overflow-hidden group cursor-pointer border border-white/10 bg-brand-card" onclick="startWorkout('booty-sculpt')">
+              <div class="h-44 w-full relative">
+                <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=80" alt="Booty Sculpt" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-card via-brand-dark/40 to-transparent"></div>
+                <span class="absolute top-3 left-3 bg-brand-lime text-black font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-full shadow-md">
+                  Exclusivo VIP
+                </span>
+                <span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white font-mono text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1 border border-white/20">
+                  <i data-lucide="clock" class="w-3 h-3"></i> 42 min
+                </span>
+              </div>
+              <div class="p-4">
+                <h4 class="font-display font-bold text-lg text-white group-hover:text-brand-lime transition">Booty & Glute Pump Intenso</h4>
+                <p class="text-xs text-gray-400 mt-1">Enfoque en hipertrofia y moldeado: Hip thrust piramidal, búlgaras y patada polea.</p>
+                
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/5 text-xs text-gray-400">
+                  <div class="flex items-center gap-3">
+                    <span class="flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5 text-brand-lime"></i> Nivel Pro</span>
+                    <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-orange-400"></i> ~390 kcal</span>
+                  </div>
+                  <span class="text-brand-lime font-bold flex items-center gap-1">Empezar <i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured Nutrition Recipe -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-bold text-white text-base tracking-wide flex items-center gap-2">
+                <i data-lucide="utensils" class="w-4 h-4 text-emerald-400"></i>
+                <span>Comida del Día Recomendada</span>
+              </h3>
+              <button onclick="switchTab('nutrition')" class="text-xs text-emerald-400 hover:underline font-semibold">Ver plan</button>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-brand-card border border-brand-cardBorder flex items-center gap-3.5 cursor-pointer hover:border-emerald-400/40 transition" onclick="showRecipeModal('smoothie')">
+              <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=160&auto=format&fit=crop&q=80" alt="Smoothie" class="w-20 h-20 rounded-xl object-cover">
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-md">Post-Entreno</span>
+                  <span class="text-[11px] text-gray-400 font-mono">320 kcal</span>
+                </div>
+                <h4 class="font-display font-bold text-sm text-white mt-1">Smoothie Proteico Glow Berries</h4>
+                <p class="text-xs text-gray-400 mt-0.5">32g Proteína • 28g Carbs • 4g Grasas</p>
+                <div class="mt-2 text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                  <span>Ver preparación e ingredientes</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIP Community Feed Snippet -->
+          <div class="space-y-2">
+            <h3 class="font-display font-bold text-white text-base tracking-wide flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-brand-pink"></i>
+              <span>Comunidad VIP de Araceli</span>
+            </h3>
+
+            <!-- Community Card -->
+            <div class="bg-brand-card p-4 rounded-2xl border border-brand-cardBorder space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover border border-white/20" alt="Alumna">
+                  <div>
+                    <h5 class="font-bold text-xs text-white">Sofía R. <span class="text-[10px] text-brand-lime font-normal ml-1">✓ Alumna Activa</span></h5>
+                    <span class="text-[10px] text-gray-400">Hace 32 minutos • Reto 21 Días</span>
+                  </div>
+                </div>
+                <span class="text-xs text-brand-pink font-semibold">Semana 3</span>
+              </div>
+              <p class="text-xs text-gray-300">
+                "¡Familia! Hoy pesé en ayunas y bajé 3.2 kg sin pasar hambre y subiendo marcas en el hip thrust con las rutinas de Ara. ¡No se rindan! 🔥💪"
+              </p>
+              <div class="flex items-center gap-4 text-xs text-gray-400 pt-1">
+                <button class="flex items-center gap-1.5 text-brand-pink hover:scale-105 transition" onclick="toggleLike(this)">
+                  <i data-lucide="heart" class="w-4 h-4 fill-brand-pink"></i>
+                  <span>142 Me gusta</span>
+                </button>
+                <button class="flex items-center gap-1.5 hover:text-white transition" onclick="switchTab('chat')">
+                  <i data-lucide="message-square" class="w-4 h-4"></i>
+                  <span>28 comentarios</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================== VIEW 2: WORKOUTS ==================== -->
+        <section id="view-workouts" class="view-panel p-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-display text-xl font-extrabold text-white">Programas & Rutinas</h2>
+              <p class="text-xs text-brand-muted">Diseñadas y explicadas en video por Araceli</p>
+            </div>
+            <span class="text-xs bg-brand-lime/10 text-brand-lime border border-brand-lime/30 px-2.5 py-1 rounded-full font-bold">
+              18 Rutinas VIP
+            </span>
+          </div>
+
+          <!-- Category Pills -->
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+            <button onclick="filterWorkouts('all')" class="category-pill active px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-brand-lime text-black">Todos</button>
+            <button onclick="filterWorkouts('gluteos')" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white/5 text-gray-300 hover:bg-white/10">Glúteos & Pierna</button>
+            <button onclick="filterWorkouts('hiit')" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white/5 text-gray-300 hover:bg-white/10">HIIT Quema Grasa</button>
+            <button onclick="filterWorkouts('abs')" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white/5 text-gray-300 hover:bg-white/10">Abdomen & Core</button>
+            <button onclick="filterWorkouts('upper')" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white/5 text-gray-300 hover:bg-white/10">Brazos & Espalda</button>
+          </div>
+
+          <!-- Workout Cards List -->
+          <div class="space-y-3.5" id="workout-list">
+            
+            <!-- Card 1 -->
+            <div class="workout-item gluteos bg-brand-card rounded-2xl border border-brand-cardBorder overflow-hidden p-3 flex gap-3.5 items-center cursor-pointer hover:border-brand-lime/40 transition" onclick="startWorkout('booty-sculpt')">
+              <div class="w-24 h-24 rounded-xl overflow-hidden relative flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=300&auto=format&fit=crop&q=80" alt="Booty" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute bottom-1.5 right-1.5 bg-black/70 text-[10px] text-brand-lime px-1.5 py-0.5 rounded font-mono">
+                  42 min
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-brand-lime bg-brand-lime/10 px-2 py-0.5 rounded">Glúteo & Isquio</span>
+                  <span class="text-[10px] text-gray-400">Gimnasio</span>
+                </div>
+                <h4 class="font-display font-bold text-sm text-white truncate mt-1">Booty & Glute Pump Intenso</h4>
+                <p class="text-xs text-gray-400 truncate">Hip thrust, búlgaras y patadas</p>
+                <div class="flex items-center justify-between mt-2 text-[11px] text-gray-400">
+                  <span>5 Ejercicios • 4 Series</span>
+                  <button class="w-7 h-7 rounded-full bg-brand-lime text-black flex items-center justify-center hover:scale-110 transition shadow-sm">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-black"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="workout-item hiit bg-brand-card rounded-2xl border border-brand-cardBorder overflow-hidden p-3 flex gap-3.5 items-center cursor-pointer hover:border-brand-lime/40 transition" onclick="startWorkout('hiit-express')">
+              <div class="w-24 h-24 rounded-xl overflow-hidden relative flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=300&auto=format&fit=crop&q=80" alt="HIIT" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute bottom-1.5 right-1.5 bg-black/70 text-[10px] text-orange-400 px-1.5 py-0.5 rounded font-mono">
+                  25 min
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded">Cardio Quema Grasa</span>
+                  <span class="text-[10px] text-gray-400">En Casa</span>
+                </div>
+                <h4 class="font-display font-bold text-sm text-white truncate mt-1">HIIT Tabata Full Body 25M</h4>
+                <p class="text-xs text-gray-400 truncate">Sin equipo, alta quema calórica</p>
+                <div class="flex items-center justify-between mt-2 text-[11px] text-gray-400">
+                  <span>6 Bloques • 350 Kcal</span>
+                  <button class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-brand-lime hover:text-black transition shadow-sm">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="workout-item abs bg-brand-card rounded-2xl border border-brand-cardBorder overflow-hidden p-3 flex gap-3.5 items-center cursor-pointer hover:border-brand-lime/40 transition" onclick="startWorkout('abs-definition')">
+              <div class="w-24 h-24 rounded-xl overflow-hidden relative flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=300&auto=format&fit=crop&q=80" alt="Abs" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute bottom-1.5 right-1.5 bg-black/70 text-[10px] text-brand-pink px-1.5 py-0.5 rounded font-mono">
+                  18 min
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-brand-pink bg-brand-pink/10 px-2 py-0.5 rounded">Cintura & Core</span>
+                  <span class="text-[10px] text-gray-400">Mat / Tapete</span>
+                </div>
+                <h4 class="font-display font-bold text-sm text-white truncate mt-1">Cintura Pequeña & Abdomen Plano</h4>
+                <p class="text-xs text-gray-400 truncate">Vacío abdominal, planchas y oblicuos</p>
+                <div class="flex items-center justify-between mt-2 text-[11px] text-gray-400">
+                  <span>4 Ejercicios • 3 Vueltas</span>
+                  <button class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-brand-lime hover:text-black transition shadow-sm">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="workout-item upper bg-brand-card rounded-2xl border border-brand-cardBorder overflow-hidden p-3 flex gap-3.5 items-center cursor-pointer hover:border-brand-lime/40 transition" onclick="startWorkout('upper-toned')">
+              <div class="w-24 h-24 rounded-xl overflow-hidden relative flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&auto=format&fit=crop&q=80" alt="Upper" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute bottom-1.5 right-1.5 bg-black/70 text-[10px] text-blue-400 px-1.5 py-0.5 rounded font-mono">
+                  35 min
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">Espalda & Hombro</span>
+                  <span class="text-[10px] text-gray-400">Mancuernas</span>
+                </div>
+                <h4 class="font-display font-bold text-sm text-white truncate mt-1">Espalda Esculpida & Hombros 3D</h4>
+                <p class="text-xs text-gray-400 truncate">Remo con mancuernas y laterales</p>
+                <div class="flex items-center justify-between mt-2 text-[11px] text-gray-400">
+                  <span>5 Ejercicios • 4 Series</span>
+                  <button class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-brand-lime hover:text-black transition shadow-sm">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 3: NUTRITION ==================== -->
+        <section id="view-nutrition" class="view-panel p-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-display text-xl font-extrabold text-white">Nutrición & Macros</h2>
+              <p class="text-xs text-brand-muted">Planes flexibles sin morirte de hambre</p>
+            </div>
+            <button onclick="calculateMacrosModal()" class="text-xs bg-emerald-400/10 text-emerald-400 border border-emerald-400/30 px-2.5 py-1 rounded-full font-bold flex items-center gap-1">
+              <i data-lucide="calculator" class="w-3 h-3"></i> Mi Meta
+            </button>
+          </div>
+
+          <!-- Goal Switcher -->
+          <div class="grid grid-cols-3 gap-1.5 p-1 bg-white/5 rounded-2xl border border-white/10 text-center">
+            <button onclick="setMacroGoal('deficit')" id="btn-deficit" class="goal-tab active py-2 rounded-xl text-xs font-bold transition bg-emerald-400 text-black">
+              Definición 🔥
+            </button>
+            <button onclick="setMacroGoal('mantener')" id="btn-mantener" class="goal-tab py-2 rounded-xl text-xs font-semibold transition text-gray-300 hover:text-white">
+              Tono ✨
+            </button>
+            <button onclick="setMacroGoal('volumen')" id="btn-volumen" class="goal-tab py-2 rounded-xl text-xs font-semibold transition text-gray-300 hover:text-white">
+              Glúteo 🍑
+            </button>
+          </div>
+
+          <!-- Macros Dashboard Card -->
+          <div class="bg-brand-card p-4 rounded-3xl border border-brand-cardBorder space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-gray-400 uppercase font-semibold">Calorías Diarias Meta</span>
+                <div class="flex items-baseline gap-1 mt-0.5">
+                  <span class="font-display text-2xl font-black text-white" id="macro-calories">1,780</span>
+                  <span class="text-xs text-gray-400">/ 1,780 kcal</span>
+                </div>
+              </div>
+              <div class="w-12 h-12 rounded-full border-4 border-emerald-400 flex items-center justify-center font-bold text-xs text-emerald-400 shadow-glow-lime">
+                100%
+              </div>
+            </div>
+
+            <!-- Macros Split Bars -->
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-white/5 p-2.5 rounded-xl border border-white/5">
+                <div class="flex justify-between text-[11px] font-bold text-brand-pink mb-1">
+                  <span>Proteína</span>
+                  <span id="macro-protein">135g</span>
+                </div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-brand-pink h-full w-[85%] rounded-full"></div>
+                </div>
+                <span class="text-[9px] text-gray-400 mt-1 block">Para músculo magro</span>
+              </div>
+
+              <div class="bg-white/5 p-2.5 rounded-xl border border-white/5">
+                <div class="flex justify-between text-[11px] font-bold text-blue-400 mb-1">
+                  <span>Carbos</span>
+                  <span id="macro-carbs">180g</span>
+                </div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-blue-400 h-full w-[70%] rounded-full"></div>
+                </div>
+                <span class="text-[9px] text-gray-400 mt-1 block">Energía para entrenar</span>
+              </div>
+
+              <div class="bg-white/5 p-2.5 rounded-xl border border-white/5">
+                <div class="flex justify-between text-[11px] font-bold text-yellow-400 mb-1">
+                  <span>Grasas</span>
+                  <span id="macro-fats">48g</span>
+                </div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-yellow-400 h-full w-[60%] rounded-full"></div>
+                </div>
+                <span class="text-[9px] text-gray-400 mt-1 block">Salud hormonal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Water Tracker -->
+          <div class="bg-gradient-to-r from-blue-900/30 to-brand-card p-4 rounded-3xl border border-blue-500/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                <i data-lucide="glass-water" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-display font-bold text-sm text-white">Hidratación Diaria</h4>
+                <p class="text-xs text-gray-400"><span id="water-progress-text" class="text-blue-400 font-bold">1,800 ml</span> de 2,500 ml meta</p>
+              </div>
+            </div>
+            <button onclick="addWaterCup()" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1 transition shadow-md active:scale-95">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>+250 ml</span>
+            </button>
+          </div>
+
+          <!-- Daily Meal Plan Checklist -->
+          <div class="space-y-2.5">
+            <h3 class="font-display font-bold text-white text-sm tracking-wide">Comidas del Día (Jueves)</h3>
+
+            <!-- Breakfast -->
+            <div class="meal-card p-3 rounded-2xl bg-brand-card border border-brand-cardBorder flex items-center gap-3 cursor-pointer hover:border-emerald-400/40 transition" onclick="showRecipeModal('breakfast')">
+              <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=150&auto=format&fit=crop&q=80" class="w-14 h-14 rounded-xl object-cover" alt="Desayuno">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-bold text-emerald-400">Desayuno • 8:30 AM</span>
+                  <span class="text-xs font-mono text-gray-300">410 kcal</span>
+                </div>
+                <h5 class="font-bold text-xs text-white truncate mt-0.5">Pancakes de Avena & Proteína con Berries</h5>
+                <span class="text-[11px] text-gray-400">34g Proteína • 45g Carbs</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </div>
+
+            <!-- Lunch -->
+            <div class="meal-card p-3 rounded-2xl bg-brand-card border border-brand-cardBorder flex items-center gap-3 cursor-pointer hover:border-emerald-400/40 transition" onclick="showRecipeModal('lunch')">
+              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=150&auto=format&fit=crop&q=80" class="w-14 h-14 rounded-xl object-cover" alt="Almuerzo">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-bold text-emerald-400">Almuerzo • 2:00 PM</span>
+                  <span class="text-xs font-mono text-gray-300">540 kcal</span>
+                </div>
+                <h5 class="font-bold text-xs text-white truncate mt-0.5">Bowl Fitness de Salmón & Quinoa Aguacate</h5>
+                <span class="text-[11px] text-gray-400">42g Proteína • 50g Carbs</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </div>
+
+            <!-- Dinner -->
+            <div class="meal-card p-3 rounded-2xl bg-brand-card border border-brand-cardBorder flex items-center gap-3 cursor-pointer hover:border-emerald-400/40 transition" onclick="showRecipeModal('dinner')">
+              <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=150&auto=format&fit=crop&q=80" class="w-14 h-14 rounded-xl object-cover" alt="Cena">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-bold text-emerald-400">Cena Ligera • 8:30 PM</span>
+                  <span class="text-xs font-mono text-gray-300">320 kcal</span>
+                </div>
+                <h5 class="font-bold text-xs text-white truncate mt-0.5">Omelette de Claras con Espinaca & Cottage</h5>
+                <span class="text-[11px] text-gray-400">36g Proteína • 12g Carbs</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 4: VIP CHAT CON ARACELI ==================== -->
+        <section id="view-chat" class="view-panel p-4 flex flex-col h-full space-y-3">
+          <!-- Chat Header Bar -->
+          <div class="bg-brand-card p-3 rounded-2xl border border-brand-cardBorder flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=120&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-brand-lime" alt="Araceli">
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border border-brand-dark"></span>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-sm text-white flex items-center gap-1">
+                  Araceli Morales
+                  <i data-lucide="badge-check" class="w-3.5 h-3.5 text-blue-400 fill-blue-400"></i>
+                </h3>
+                <span class="text-[10px] text-emerald-400 font-medium">En línea para alumnas VIP</span>
+              </div>
+            </div>
+
+            <!-- Weekly Check-in Form Trigger -->
+            <button onclick="openCheckinModal()" class="px-2.5 py-1.5 bg-brand-pink/15 hover:bg-brand-pink/25 text-brand-pink border border-brand-pink/30 rounded-xl text-xs font-bold flex items-center gap-1 transition">
+              <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
+              <span>Enviar Check-in</span>
+            </button>
+          </div>
+
+          <!-- Chat Messages Area -->
+          <div id="chat-messages" class="flex-1 space-y-3 overflow-y-auto pr-1 min-h-[360px] max-h-[420px]">
+            <!-- Msg 1 (Araceli Voice Note) -->
+            <div class="flex items-start gap-2.5">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1" alt="Ara">
+              <div class="max-w-[85%] bg-brand-card p-3 rounded-2xl rounded-tl-sm border border-brand-cardBorder space-y-1.5 shadow-sm">
+                <div class="flex items-center gap-2 text-xs text-brand-lime font-semibold">
+                  <i data-lucide="mic" class="w-3.5 h-3.5"></i>
+                  <span>Nota de voz de Araceli (0:24)</span>
+                </div>
+                <!-- Simulated Audio Player -->
+                <div class="flex items-center gap-2.5 bg-white/5 px-3 py-2 rounded-xl cursor-pointer hover:bg-white/10 transition" onclick="playVoiceNoteDemo(this)">
+                  <button class="w-8 h-8 rounded-full bg-brand-lime text-black flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+                  </button>
+                  <div class="flex-1 flex items-center gap-1">
+                    <span class="w-1 h-3 bg-brand-lime rounded-full animate-pulse"></span>
+                    <span class="w-1 h-5 bg-brand-lime rounded-full"></span>
+                    <span class="w-1 h-2 bg-brand-lime/60 rounded-full"></span>
+                    <span class="w-1 h-6 bg-brand-lime rounded-full animate-pulse"></span>
+                    <span class="w-1 h-4 bg-brand-lime/70 rounded-full"></span>
+                    <span class="w-1 h-7 bg-brand-lime rounded-full"></span>
+                    <span class="w-1 h-3 bg-brand-lime/60 rounded-full"></span>
+                    <span class="w-1 h-5 bg-brand-lime rounded-full"></span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-mono">0:24</span>
+                </div>
+                <span class="text-[10px] text-gray-500 block text-right">Hoy 10:15 AM</span>
+              </div>
+            </div>
+
+            <!-- Msg 2 (Araceli Text) -->
+            <div class="flex items-start gap-2.5">
+              <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1" alt="Ara">
+              <div class="max-w-[85%] bg-brand-card p-3 rounded-2xl rounded-tl-sm border border-brand-cardBorder space-y-1 shadow-sm">
+                <p class="text-xs text-gray-200 leading-relaxed">
+                  ¡Hola hermosa! Vi tus pesos de la semana pasada en hip thrust. ¡Vas brutal! Recuerda que hoy es súper importante que comas tus 135g de proteína y no te saltes los estiramientos. ¿Cómo te has sentido de energía? 🔥
+                </p>
+                <span class="text-[10px] text-gray-500 block text-right">Hoy 10:16 AM</span>
+              </div>
+            </div>
+
+            <!-- User Response -->
+            <div class="flex items-end justify-end gap-2">
+              <div class="max-w-[80%] bg-brand-lime text-black font-medium p-3 rounded-2xl rounded-br-sm text-xs shadow-glow-lime">
+                ¡Ara! Súper motivada, ayer rompí récord con 70kg en hip thrust. ¡Muchas gracias por tus consejos! 🙌🍑
+                <span class="text-[9px] text-black/70 block text-right mt-1 font-mono">10:22 AM ✓✓</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Response Chips -->
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            <button onclick="sendQuickReply('¿Qué proteína en polvo recomiendas para empezar?')" class="bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] text-gray-300 px-3 py-1 rounded-full whitespace-nowrap transition">
+              💬 ¿Qué proteína recomiendas?
+            </button>
+            <button onclick="sendQuickReply('¿Puedo cambiar el salmón por atún en la comida?')" class="bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] text-gray-300 px-3 py-1 rounded-full whitespace-nowrap transition">
+              🥗 ¿Puedo sustituir el salmón?
+            </button>
+            <button onclick="sendQuickReply('¡Ya terminé mi rutina de hoy, estuvo fuertísima!')" class="bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] text-gray-300 px-3 py-1 rounded-full whitespace-nowrap transition">
+              🔥 ¡Terminé la rutina de hoy!
+            </button>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <form onsubmit="handleChatSubmit(event)" class="relative flex items-center gap-2 pt-1">
+            <input id="chat-input" type="text" placeholder="Escribe tu duda a Araceli..." class="flex-1 bg-brand-card border border-brand-cardBorder rounded-2xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-lime transition">
+            <button type="submit" class="w-10 h-10 rounded-2xl bg-brand-lime hover:bg-brand-limeHover text-black flex items-center justify-center flex-shrink-0 shadow-glow-lime transition transform active:scale-95">
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </section>
+
+        <!-- ==================== VIEW 5: PITCH DECK & REVENUE CALCULATOR ==================== -->
+        <section id="view-pitch" class="view-panel p-4 space-y-5">
+          <!-- Pitch Header -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-card via-[#1A1C28] to-purple-950/30 p-5 border border-brand-pink/30 shadow-glow-pink">
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-brand-pink bg-brand-pink/10 px-2.5 py-1 rounded-full border border-brand-pink/20">
+              PROPUESTA EXCLUSIVA DE NEGOCIO
+            </span>
+            <h2 class="font-display text-2xl font-black text-white mt-2 leading-tight">
+              Araceli Morales × Tu Propio Imperio Fitness
+            </h2>
+            <p class="text-xs text-gray-300 mt-1.5">
+              Convierte tus <strong class="text-brand-lime">44,000 seguidores de Instagram</strong> en un negocio que facture de forma recurrente mes con mes en automático.
+            </p>
+          </div>
+
+          <!-- Problem vs Solution Comparison -->
+          <div class="space-y-2">
+            <h3 class="font-display font-bold text-white text-sm">¿Por qué tener tu propia App en vez de solo Instagram?</h3>
+            <div class="grid grid-cols-2 gap-2">
+              <!-- Without App -->
+              <div class="bg-red-950/20 border border-red-500/20 p-3 rounded-2xl space-y-1.5">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-red-400">
+                  <i data-lucide="x-circle" class="w-4 h-4"></i>
+                  <span>Hoy (Solo IG)</span>
+                </div>
+                <ul class="text-[11px] text-gray-400 space-y-1">
+                  <li>❌ El algoritmo solo le muestra tus posts al 7% de tus seguidores.</li>
+                  <li>❌ Marcas que te pagan poco y tardan meses.</li>
+                  <li>❌ Cientos de DMs pidiendo planes sin poder cobrarles ordenadamente.</li>
+                </ul>
+              </div>
+
+              <!-- With Official App -->
+              <div class="bg-emerald-950/20 border border-emerald-500/30 p-3 rounded-2xl space-y-1.5">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-brand-lime">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                  <span>Con Tu App</span>
+                </div>
+                <ul class="text-[11px] text-gray-300 space-y-1">
+                  <li>✅ Cobras membresías mensuales automáticas (Stripe / Apple / Google).</li>
+                  <li>✅ Acceso 100% directo a tus alumnas sin depender del algoritmo.</li>
+                  <li>✅ Ingresos recurrentes mientras duermes o entrenas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIVE INTERACTIVE REVENUE CALCULATOR -->
+          <div class="bg-brand-card p-5 rounded-3xl border-2 border-brand-lime/40 space-y-4 shadow-xl">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-brand-lime tracking-wider">CALCULADORA EN TIEMPO REAL</span>
+                <h3 class="font-display text-lg font-black text-white">¿Cuánto puedes ganar al mes?</h3>
+              </div>
+              <div class="w-9 h-9 rounded-xl bg-brand-lime/10 flex items-center justify-center text-brand-lime">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+              </div>
+            </div>
+
+            <!-- Slider 1: Conversion Rate (% of 44k followers) -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-300">Seguidoras que se suscriben (% de tus 44,000):</span>
+                <span id="slider-rate-val" class="font-bold text-brand-lime font-mono">1.5% (660 alumnas)</span>
+              </div>
+              <input type="range" id="rate-slider" min="0.5" max="5.0" step="0.1" value="1.5" oninput="calculateRevenue()" class="w-full accent-brand-lime cursor-pointer">
+              <div class="flex justify-between text-[10px] text-gray-500">
+                <span>0.5% (220)</span>
+                <span>Conservador (1.5%)</span>
+                <span>5.0% (2,200)</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Subscription Price (MXN) -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-300">Precio de tu Membresía Mensual:</span>
+                <span id="slider-price-val" class="font-bold text-emerald-400 font-mono">$349 MXN / mes</span>
+              </div>
+              <input type="range" id="price-slider" min="199" max="699" step="25" value="349" oninput="calculateRevenue()" class="w-full accent-emerald-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-gray-500">
+                <span>$199 MXN</span>
+                <span>Promedio ($349 MXN)</span>
+                <span>$699 MXN VIP</span>
+              </div>
+            </div>
+
+            <!-- Result Box -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-[#0C140F] to-[#121E15] border border-brand-lime/40 text-center space-y-1">
+              <span class="text-[11px] text-gray-400 font-medium">Facturación Estimada Mensual para Araceli:</span>
+              <div class="font-display text-3xl font-black text-brand-lime tracking-tight" id="calc-monthly-income">
+                $230,340 MXN
+              </div>
+              <div class="text-xs text-gray-400">
+                Al año representaría: <strong class="text-white font-mono" id="calc-annual-income">$2,764,080 MXN</strong>
+              </div>
+            </div>
+            
+            <p class="text-[10px] text-gray-400 text-center italic">
+              * Con solo el 1.5% de tu audiencia apoyándote en tu app exclusiva.
+            </p>
+          </div>
+
+          <!-- What We Offer & The Partnership Model -->
+          <div class="bg-brand-card p-4 rounded-3xl border border-brand-cardBorder space-y-3">
+            <h3 class="font-display font-bold text-white text-sm">Nuestra Alianza: Cero Riesgo Para Ti</h3>
+            
+            <div class="space-y-2.5 text-xs text-gray-300">
+              <div class="flex items-start gap-2.5">
+                <div class="w-6 h-6 rounded-lg bg-brand-lime/10 text-brand-lime flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <strong class="text-white block">Tú pones tu Marca & Pasión:</strong>
+                  Tus rutinas, tus recetas y tu comunidad en Instagram (lo que ya amas hacer).
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <div class="w-6 h-6 rounded-lg bg-brand-lime/10 text-brand-lime flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <strong class="text-white block">Nosotros nos encargamos de TODO el Software:</strong>
+                  Diseño de lujo, desarrollo móvil, pasarelas de pago, servidores rápidos y soporte 24/7 a tus alumnas.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <div class="w-6 h-6 rounded-lg bg-brand-lime/10 text-brand-lime flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <strong class="text-white block">Lanzamiento en 14 Días:</strong>
+                  Tu demo ya está lista. Grabamos 1 semana y lanzamos tu primer reto oficial de 21 días.
+                </div>
+              </div>
+            </div>
+
+            <!-- Pitch Closing Action -->
+            <button onclick="triggerPitchConfetti()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-brand-lime to-emerald-400 hover:brightness-110 text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow-lime transition transform active:scale-98">
+              <i data-lucide="rocket" class="w-4 h-4"></i>
+              <span>¡Hagamos Historia Juntos, Araceli! 🚀</span>
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- App Bottom Tab Bar (iOS Native Style) -->
+      <nav class="w-full h-18 bg-brand-dark/95 backdrop-blur-md border-t border-white/10 px-4 py-2 flex items-center justify-around z-40 absolute bottom-0">
+        <!-- Tab 1: Home -->
+        <button onclick="switchTab('home')" id="tab-home" class="tab-btn active flex flex-col items-center gap-1 text-brand-lime transition">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          <span class="text-[10px] font-bold">Inicio</span>
+        </button>
+
+        <!-- Tab 2: Workouts -->
+        <button onclick="switchTab('workouts')" id="tab-workouts" class="tab-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition">
+          <i data-lucide="dumbbell" class="w-5 h-5"></i>
+          <span class="text-[10px] font-bold">Entrenar</span>
+        </button>
+
+        <!-- Tab 3: Nutrition -->
+        <button onclick="switchTab('nutrition')" id="tab-nutrition" class="tab-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition">
+          <i data-lucide="salad" class="w-5 h-5"></i>
+          <span class="text-[10px] font-bold">Dietas</span>
+        </button>
+
+        <!-- Tab 4: Chat VIP -->
+        <button onclick="switchTab('chat')" id="tab-chat" class="tab-btn flex flex-col items-center gap-1 text-gray-400 hover:text-white transition relative">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span class="text-[10px] font-bold">Chat Ara</span>
+          <span class="absolute -top-0.5 right-2 w-2 h-2 bg-brand-pink rounded-full animate-ping"></span>
+        </button>
+
+        <!-- Tab 5: Pitch / Negocio -->
+        <button onclick="switchTab('pitch')" id="tab-pitch" class="tab-btn flex flex-col items-center gap-1 text-brand-pink hover:text-white transition">
+          <i data-lucide="trending-up" class="w-5 h-5"></i>
+          <span class="text-[10px] font-bold">Propuesta</span>
+        </button>
+      </nav>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODAL: WORKOUT PLAYER ==================== -->
+  <div id="workout-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-[400px] bg-brand-dark rounded-3xl border border-white/15 overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+      <!-- Header -->
+      <div class="p-4 border-b border-white/10 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold text-brand-lime uppercase tracking-wider">ENTRENAMIENTO EN CURSO</span>
+          <h3 class="font-display font-bold text-white text-base" id="modal-workout-title">Booty & Glute Pump</h3>
+        </div>
+        <button onclick="closeWorkoutModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Exercise Video/Animation Display -->
+      <div class="relative h-56 bg-black flex items-center justify-center overflow-hidden">
+        <img id="exercise-img" src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=500&auto=format&fit=crop&q=80" alt="Exercise" class="w-full h-full object-cover opacity-80">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-black/40"></div>
+        
+        <!-- Exercise Name Overlay -->
+        <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+          <div>
+            <span class="text-[10px] font-bold text-brand-lime bg-black/70 px-2 py-0.5 rounded">EJERCICIO 1 DE 4</span>
+            <h4 class="font-display font-black text-xl text-white mt-1" id="exercise-name">Hip Thrust con Barra</h4>
+            <p class="text-xs text-gray-300 font-mono" id="exercise-target">4 series × 12 repeticiones (60kg)</p>
+          </div>
+          <span class="text-xs bg-brand-lime text-black font-extrabold px-2.5 py-1 rounded-full">SERIE 1/4</span>
+        </div>
+      </div>
+
+      <!-- Workout Interactive Controls -->
+      <div class="p-5 space-y-4">
+        <!-- Rest Timer -->
+        <div class="bg-brand-card p-3.5 rounded-2xl border border-brand-cardBorder flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center">
+              <i data-lucide="hourglass" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-gray-400 uppercase font-semibold">Descanso entre series</span>
+              <div class="font-mono font-bold text-lg text-white" id="timer-display">00:45</div>
+            </div>
+          </div>
+          <button onclick="toggleTimer()" id="btn-timer" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition">
+            Iniciar
+          </button>
+        </div>
+
+        <!-- Series Completion Buttons -->
+        <div class="space-y-2">
+          <span class="text-xs text-gray-400 font-medium">Marca las series completadas:</span>
+          <div class="grid grid-cols-4 gap-2">
+            <button onclick="checkSet(this, 1)" class="set-btn py-2.5 rounded-xl border border-white/20 text-xs font-bold text-gray-300 hover:border-brand-lime transition">Set 1</button>
+            <button onclick="checkSet(this, 2)" class="set-btn py-2.5 rounded-xl border border-white/20 text-xs font-bold text-gray-300 hover:border-brand-lime transition">Set 2</button>
+            <button onclick="checkSet(this, 3)" class="set-btn py-2.5 rounded-xl border border-white/20 text-xs font-bold text-gray-300 hover:border-brand-lime transition">Set 3</button>
+            <button onclick="checkSet(this, 4)" class="set-btn py-2.5 rounded-xl border border-white/20 text-xs font-bold text-gray-300 hover:border-brand-lime transition">Set 4</button>
+          </div>
+        </div>
+
+        <!-- Finish Workout Button -->
+        <button onclick="finishWorkoutModal()" class="w-full py-3.5 rounded-2xl bg-brand-lime hover:bg-brand-limeHover text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow-lime transition transform active:scale-98">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Completar Ejercicio y Siguiente</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: RECIPE DETAIL ==================== -->
+  <div id="recipe-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-[400px] bg-brand-dark rounded-3xl border border-white/15 overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="relative h-44">
+        <img id="recipe-modal-img" src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-black/50"></div>
+        <button onclick="closeRecipeModal()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+        <span class="absolute bottom-3 left-4 text-xs font-extrabold text-emerald-400 bg-black/70 px-2.5 py-1 rounded-full" id="recipe-modal-tag">
+          Desayuno Fit
+        </span>
+      </div>
+
+      <div class="p-5 space-y-3 overflow-y-auto flex-1">
+        <h3 class="font-display font-bold text-lg text-white" id="recipe-modal-title">Pancakes de Avena & Proteína</h3>
+        <p class="text-xs text-gray-300" id="recipe-modal-desc">
+          Receta favorita de Araceli para antes de entrenar pierna. Satisface el antojo dulce sin salirte de tus macros.
+        </p>
+
+        <div class="bg-brand-card p-3 rounded-xl border border-brand-cardBorder flex justify-around text-center text-xs">
+          <div><strong class="text-white block text-sm" id="recipe-modal-kcal">410</strong><span class="text-[10px] text-gray-400">Calorías</span></div>
+          <div><strong class="text-brand-pink block text-sm" id="recipe-modal-prot">34g</strong><span class="text-[10px] text-gray-400">Proteína</span></div>
+          <div><strong class="text-blue-400 block text-sm" id="recipe-modal-carbs">45g</strong><span class="text-[10px] text-gray-400">Carbohidratos</span></div>
+          <div><strong class="text-yellow-400 block text-sm" id="recipe-modal-fat">7g</strong><span class="text-[10px] text-gray-400">Grasas</span></div>
+        </div>
+
+        <div class="space-y-1.5">
+          <h4 class="font-bold text-xs text-white uppercase tracking-wider">Ingredientes:</h4>
+          <ul class="text-xs text-gray-300 space-y-1 list-disc list-inside">
+            <li>50g de avena molida o en hojuelas</li>
+            <li>1 scoop (30g) de proteína sabor vainilla</li>
+            <li>100ml de claras de huevo (o 1 huevo + 2 claras)</li>
+            <li>1/2 plátano maduro</li>
+            <li>Frutos rojos frescos para topping</li>
+          </ul>
+        </div>
+
+        <button onclick="closeRecipeModal()" class="w-full py-3 rounded-xl bg-emerald-400 hover:bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider transition">
+          Listo, Registrar en mi Diario
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CHECK-IN SEMANAL CON ARACELI ==================== -->
+  <div id="checkin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-[400px] bg-brand-dark rounded-3xl border border-brand-pink/30 overflow-hidden shadow-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold text-brand-pink uppercase tracking-wider">SEGUIMIENTO PERSONALIZADO</span>
+          <h3 class="font-display font-bold text-lg text-white">Check-in Semanal con Ara</h3>
+        </div>
+        <button onclick="closeCheckinModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-gray-300">
+        Araceli revisa tus fotos y métricas cada domingo para ajustar tus pesos y calorías de la siguiente semana.
+      </p>
+
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Peso en ayunas hoy (kg):</label>
+          <input type="number" placeholder="Ej: 58.4" class="w-full bg-brand-card border border-brand-cardBorder rounded-xl px-3 py-2 text-xs text-white focus:border-brand-lime">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Cintura (cm):</label>
+            <input type="number" placeholder="Ej: 66" class="w-full bg-brand-card border border-brand-cardBorder rounded-xl px-3 py-2 text-xs text-white focus:border-brand-lime">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Cadera / Glúteo (cm):</label>
+            <input type="number" placeholder="Ej: 98" class="w-full bg-brand-card border border-brand-cardBorder rounded-xl px-3 py-2 text-xs text-white focus:border-brand-lime">
+          </div>
+        </div>
+
+        <!-- Simulated Photo Upload -->
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Fotos de Progreso (Frente, Perfil, Espalda):</label>
+          <div class="border-2 border-dashed border-white/20 rounded-xl p-4 text-center cursor-pointer hover:border-brand-pink/50 transition">
+            <i data-lucide="camera" class="w-6 h-6 text-brand-pink mx-auto mb-1"></i>
+            <span class="text-xs text-gray-300 block font-semibold">Toca para subir o tomar foto</span>
+            <span class="text-[10px] text-gray-500">100% privado y solo visible para Araceli</span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="submitCheckin()" class="w-full py-3 rounded-2xl bg-brand-pink hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider shadow-glow-pink transition">
+        Enviar Check-in a Araceli 💌
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: STORY VIEWER ==================== -->
+  <div id="story-modal" class="fixed inset-0 z-50 bg-black flex items-center justify-center p-0 hidden">
+    <div class="relative w-full max-w-[420px] h-full sm:h-[860px] bg-black sm:rounded-[36px] overflow-hidden flex flex-col justify-between p-4">
+      <!-- Progress indicators -->
+      <div class="w-full flex gap-1 z-30 pt-2">
+        <div class="h-1 flex-1 bg-white/40 rounded-full overflow-hidden">
+          <div id="story-bar-1" class="h-full bg-brand-lime w-full"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/40 rounded-full overflow-hidden">
+          <div id="story-bar-2" class="h-full bg-brand-lime w-0 transition-all duration-3000"></div>
+        </div>
+      </div>
+
+      <!-- Story Header -->
+      <div class="flex items-center justify-between z-30 pt-2">
+        <div class="flex items-center gap-2.5">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover border-2 border-brand-lime">
+          <div>
+            <span class="text-xs font-bold text-white block">Araceli Morales</span>
+            <span class="text-[10px] text-gray-300">Hace 2 horas</span>
+          </div>
+        </div>
+        <button onclick="closeStory()" class="w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Story Content Image -->
+      <img id="story-image" src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+
+      <!-- Story Footer Overlay Text & CTA -->
+      <div class="relative z-30 space-y-3 pb-4">
+        <div class="bg-black/60 backdrop-blur-md p-3 rounded-2xl border border-white/20">
+          <p class="text-xs text-white font-medium" id="story-caption">
+            "Hoy no tenía tantas ganas de entrenar, pero la disciplina le gana a la motivación. ¡Quien ya hizo la rutina de glúteos de la app comente un 🔥!"
+          </p>
+        </div>
+        <button onclick="switchTab('workouts'); closeStory();" class="w-full py-3 bg-brand-lime text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-glow-lime">
+          Hacer la Rutina Ahora
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed top-5 z-50 bg-[#171A24] border border-brand-lime/50 text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 opacity-0 transform -translate-y-4 pointer-events-none transition-all duration-300 max-w-[360px]">
+    <i data-lucide="info" class="w-4 h-4 text-brand-lime flex-shrink-0"></i>
+    <span id="toast-text">Notificación</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
