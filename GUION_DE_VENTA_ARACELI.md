@@ -1,4 +1,4 @@
-# 🔥 GUION DE PITCH Y CIERRE: ARACELI MORALES (ARJU FITNESS)
+# 🔥 GUION DE PITCH Y CIERRE: ARACELI MORALES (POWERED BY OMEN)
 *Estrategia para convencerla en 15 minutos en persona o café*
 
 ---
@@ -32,13 +32,19 @@ No es venderle software complicado ni hablarle de servidores.
 ## 📱 FASE 3: EL MOMENTO "WOW" (Pásale el teléfono)
 *(Abre la demo en tu teléfono o iPad y pónselo en las manos).*
 
-> **Tú:** *"Mira esto. No te lo quería platicar, te lo quería enseñar. Te diseñé la demo oficial de tu propia app: **ARJU FITNESS**."*
+> **Tú:** *"Mira esto. No te lo quería platicar, te lo quería enseñar. Te diseñamos la demo oficial de tu propia app: **ARACELI MORALES APP** con diseño girly de ultra lujo estilo Apple."*
 
 ### Cosas clave que debes mostrarle en orden:
-1. **La pantalla de inicio con su foto y palomita verificada:** *"Aquí tus alumnas ven tu racha diaria, tus historias exclusivas y el reto activo."*
-2. **Pestaña de Entrenamientos:** *"Entra a 'Booty & Glute Pump'. Dale clic en 'Iniciar Rutina'. Mira el temporizador de descanso interactivo con sonido y las series que van marcando."*
-3. **Pestaña de Nutrición:** *"Calcula macros automático: si quieren definir o aumentar glúteo limpio. Y mira las recetas con fotos apetitosas y el medidor de agua."*
-4. **Pestaña de Chat:** *"Aquí hablan contigo. Mira, dale clic a la nota de voz... Tienen acceso VIP a ti sin que les des tu número personal."*
+1. **El Switcher Dual (Arriba a la derecha):** *"Mira esto: la app tiene dos modos con un solo toque. Primero ve cómo lo vive tu alumna, y luego cómo lo manejas tú como dueña."*
+2. **Modo 1: Sofía Ramírez (Alumna):**
+   - **Nutrición con Anillos Apple:** *"Aquí Sofía ve sus anillos de calorías, proteína y agua en tiempo real. Puede registrar su agua (+250ml) y ver el menú diario que tú le planeaste."*
+   - **Rutinas Interactivas:** *"Entra a 'Booty & Glute Sculpt'. Ella puede anotar con cuánto peso entrenó hoy, cuántas repeticiones sacó y activar el temporizador de descanso de 45s con campana de audio."*
+   - **Chat Directo & Check-in:** *"Aquí tiene su chat 1 a 1 contigo y su botón de 'Check-in Semanal' donde te manda sus fotos de progreso y peso corporal sin perderse en WhatsApp."*
+3. **El Efecto Mágico: Cambia al Modo Coach (👑 Araceli Morales):**
+   - *"Ahora mira esto, tocas arriba y cambias a tu vista de dueña:"*
+   - **Dashboard Ejecutivo:** *"Ves tus 428 alumnas activas, tus $149,372 MXN facturados este mes y tu retención del 94%."*
+   - **CRM de Alumnas con Semáforos:** *"Aquí ves quién va al 100% y quién necesita un empujoncito. Toca a Sofía y ves sus fotos de check-in semanales para aprobarlas con un clic y dejarle feedback."*
+   - **Bandeja Sincronizada:** *"Todo lo que Sofía te escribe te aparece aquí organizado, sin mezclar tu vida personal de WhatsApp con tu negocio."*
 
 ---
 

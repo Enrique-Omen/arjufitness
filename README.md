@@ -1,6 +1,5 @@
-# 🍑 ARJU FITNESS - Demo App Oficial para Araceli Morales (@aracelimorales_fit)
-
-Prototipo interactivo de alta fidelidad ("dark luxury fitness") diseñado para presentarle a **Araceli Morales** (influencer fitness con 44,000 seguidores en Instagram) una propuesta de negocio integral para monetizar a su comunidad mediante su propia app oficial.
+# ✨ ARACELI MORALES | App Oficial (Girly Luxury Tipo Apple) - Powered by OMEN
+*Prototipo interactivo PWA de alta fidelidad ("Girly Caro Tipo Apple") con control dual de usuarios (Alumna vs Coach) para presentar a Araceli Morales (44k seguidores) y cerrar alianza de suscripciones con OMEN Technologies.*
 
 ---
 
